@@ -1,0 +1,135 @@
+## Python targets
+*/* PYTHON_TARGETS: python3_9 python3_10 -python3_8
+*/* PYTHON_SINGLE_TARGET: python3_9 -python3_8
+
+## Python per-package
+app-emulation/qemu PYTHON_TARGETS: -python3_9
+app-office/libreoffice PYTHON_TARGETS: -python3_9
+dev-lang/python-exec-conf PYTHON_TARGETS: -python3_9
+dev-libs/newt PYTHON_TARGETS: -python3_9
+dev-python/certifi PYTHON_TARGETS: python3_8
+dev-python/setuptools PYTHON_TARGETS: python3_8
+dev-python/setuptools_scm PYTHON_TARGETS: python3_8
+dev-python/toml PYTHON_TARGETS: python3_8
+dev-vcs/git PYTHON_SINGLE_TARGET: -python3_9 python3_10
+net-firewall/ufw PYTHON_TARGETS: -python3_9
+sys-block/systemd-swap PYTHON_TARGETS: python3_8
+
+## Own stuff
+app-cdr/cdrtools schily-tools
+app-editors/vscode insiders ignore-gpu-blacklist substitute-urls
+app-emulation/qemu aio virgl virtfs usbredir qemu_user_targets_aarch64 qemu_softmmu_targets_x86_64 qemu_softmmu_targets_aarch64
+app-emulation/virt-manager gtk
+app-portage/layman sync-plugin-portage
+app-text/hunspell de
+dev-libs/libpcre2 pcre32
+dev-util/electron optimize-thinlto optimize-webui system-openjpeg thinlto
+gnome-base/gnome-keyring -ssh-agent
+kde-apps/kio-extras mtp
+kde-apps/krdc -rdp
+kde-apps/spectacle -kipi
+kde-plasma/plasma-desktop -kaccounts
+kde-plasma/kwin screencast multimedia
+kde-plasma/plasma-meta -crash-handler -crypt -wallpapers -desktop-portal
+kde-plasma/plasma-workspace -calculator fontconfig
+kde-plasma/powerdevil brightness-control
+mail-client/thunderbird hwaccel lto
+media-fonts/fira-sans -otf ttf
+media-fonts/noto -extra
+media-fonts/noto-emoji buildfont
+media-libs/lcms threads
+media-libs/libsdl2 -wayland
+media-video/pipewire aptx v4l
+net-libs/nodejs -lto
+net-misc/networkmanager iwd
+net-misc/nextcloud-client dolphin
+sys-apps/systemd gnuefi importd pkcs11 curl lzma
+sys-auth/polkit duktape
+sys-boot/grub mount -themes device-mapper
+sys-devel/gcc graphite lto pgo
+www-client/firefox hwaccel lto pgo
+x11-base/xorg-server xephyr kdrive
+
+## Broken
+media-video/mpv -vulkan
+
+## System
+# required by app-text/texlive-core-2021::gentoo
+# required by virtual/tex-base-0::gentoo
+# required by app-text/lcdf-typetools-2.108::gentoo
+# required by app-text/texlive-2021::gentoo
+# required by app-text/lesspipe-1.85::mv[dvi2tty]
+# required by sys-apps/less-586::mv[lesspipe]
+# required by @system
+# required by @world (argument)
+>=media-libs/harfbuzz-2.8.1 icu
+# required by x11-libs/pango-1.48.5::gentoo
+# required by gnome-base/librsvg-2.50.5::gentoo
+# required by app-text/djvu-3.5.28-r1::gentoo
+# required by app-text/lesspipe-1.85::mv[djvu]
+# required by sys-apps/less-586::mv[lesspipe]
+# required by @system
+# required by @world (argument)
+>=x11-libs/cairo-1.16.0-r4 X
+# required by media-libs/mesa-21.1.1::gentoo
+# required by media-libs/libepoxy-1.5.7::gentoo[egl]
+# required by x11-base/xorg-server-1.20.11::gentoo[-minimal]
+# required by x11-drivers/xf86-input-libinput-1.0.1::gentoo
+# required by x11-base/xorg-drivers-1.20-r2::gentoo[input_devices_libinput]
+>=media-libs/libglvnd-1.3.3 X
+# required by dev-texlive/texlive-xetex-2021::gentoo
+# required by dev-texlive/texlive-formatsextra-2021::gentoo
+# required by app-text/texlive-2021::gentoo[-extra,xml]
+# required by app-text/lesspipe-1.85::mv[dvi2tty]
+# required by sys-apps/less-586::mv[lesspipe]
+# required by @system
+# required by @world (argument)
+>=app-text/texlive-core-2021 xetex
+>=sys-apps/dbus-1.12.20-r1 user-session
+# required by media-sound/pulseaudio-13.0-r1::gentoo[alsa,alsa-plugin]
+# required by kde-plasma/plasma-pa-5.21.5::gentoo
+# required by plasma-pa (argument)
+>=media-plugins/alsa-plugins-1.2.2 pulseaudio
+# required by www-client/firefox-88.0.1::gentoo[system-libvpx]
+# required by firefox (argument)
+>=media-libs/libvpx-1.10.0 postproc
+# required by www-client/firefox-88.0.1::gentoo[pgo]
+# required by firefox (argument)
+>=x11-base/xorg-server-1.20.11 xvfb# required by media-gfx/gimp-9999::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/babl-9999 introspection
+# required by media-gfx/gimp-9999::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/gegl-9999 introspection
+# required by kde-apps/krfb-9999::kde[wayland]
+# required by krfb (argument)
+>=sys-apps/xdg-desktop-portal-1.8.1 screencast
+# required by app-emulation/virt-manager-3.2.0::gentoo[gtk]
+# required by virt-manager (argument)
+>=net-misc/spice-gtk-0.39 usbredir
+# required by app-emulation/libvirt-7.3.0::gentoo[virt-network]
+# required by app-emulation/libvirt-glib-4.0.0::gentoo
+# required by app-emulation/virt-manager-3.2.0::gentoo
+# required by virt-manager (argument)
+>=net-dns/dnsmasq-2.85 script
+# required by www-client/torbrowser-launcher-9999::guru
+# required by torbrowser-launcher (argument)
+>=app-crypt/gpgme-1.15.1 python
+# required by net-im/telegram-desktop-2.7.5::pg_overlay
+# required by telegram-desktop (argument)
+>=media-video/ffmpeg-4.4 opus
+# required by www-client/firefox-88.0.1::gentoo[pgo]
+# required by @selected
+# required by @world (argument)
+>=x11-base/xorg-server-9999 xvfb
+# required by dev-util/electron-12.0.9::pf4public
+# required by app-editors/vscode-1.56.2::pf4public
+# required by vscode (argument)
+>=net-libs/nodejs-16.2.0 inspector
+# required by gnome-base/gnome-keyring-40.0::gentoo
+# required by app-crypt/libsecret-0.20.4::gentoo
+# required by app-editors/vscode-1.56.2::pf4public
+# required by vscode (argument)
+>=app-crypt/gcr-3.40.0 gtk

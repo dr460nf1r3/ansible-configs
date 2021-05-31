@@ -1,0 +1,7 @@
+# Broken
+app-office/libreoffice::pg_overlay
+dev-python/PyQt5-sip::pg_overlay
+dev-python/sip::pg_overlay
+mail-client/thunderbird::pg_overlay
+media-sound/pulseaudio::pg_overlay
+www-client/firefox::pg_overlay

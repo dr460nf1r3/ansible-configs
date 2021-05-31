@@ -1,0 +1,13 @@
+# No CCACHE
+media-libs/tg_owt no-ccache.conf
+
+# No TMPFS
+app-office/libreoffice		no-tmpfs.conf
+dev-lang/ghc				no-tmpfs.conf
+dev-lang/mono				no-tmpfs.conf
+dev-lang/rust				no-tmpfs.conf
+dev-lang/spidermonkey		no-tmpfs.conf
+mail-client/thunderbird		no-tmpfs.conf
+sys-devel/gcc				no-tmpfs.conf
+www-client/chromium			no-tmpfs.conf
+www-client/firefox			no-tmpfs.conf

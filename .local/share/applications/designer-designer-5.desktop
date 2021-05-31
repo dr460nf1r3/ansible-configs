@@ -1,0 +1,15 @@
+[Desktop Entry]
+Categories=Qt;Development;GUIDesigner;
+Comment=WYSIWYG tool for designing and building graphical user interfaces with QtWidgets
+Exec=/usr/lib64/qt5/bin/designer
+Icon=designer-qt5
+Name=Qt 5 Designer
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+TryExec=/usr/lib64/qt5/bin/designer
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

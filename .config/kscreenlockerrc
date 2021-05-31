@@ -1,0 +1,8 @@
+[Greeter]
+WallpaperPlugin=com.github.zren.inactiveblur
+
+[Greeter][Wallpaper][com.github.zren.inactiveblur][General]
+Image=file:///home/nico/.local/share/wallpapers/Anime_girl.jpg
+
+[Greeter][Wallpaper][org.kde.image][General]
+Image=/home/nico/.local/share/wallpapers/Anime_girl.jpg
