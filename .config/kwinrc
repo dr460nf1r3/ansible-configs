@@ -3,8 +3,11 @@ GLCore=true
 OpenGLIsUnsafe=false
 
 [Desktops]
-Id_1=ec56abb4-010f-4a2f-8e70-28a77191c610
-Number=1
+Id_1=1a831ee1-83fa-455a-aa49-81ac9129a9e4
+Id_2=ece4b158-9b1e-4b8c-8a25-909cf77858af
+Name_1=Desktop
+Name_2=Offscreen
+Number=2
 Rows=1
 
 [Effect-Blur]
@@ -12,20 +15,46 @@ NoiseStrength=0
 
 [Effect-CoverSwitch]
 TabBox=true
+zPosition=815
+
+[Effect-Glide]
+Duration=90
+InDistance=50
+InRotationAngle=0
+OutDistance=35
+OutRotationAngle=0
+
+[Effect-Wobbly]
+Drag=85
+Stiffness=10
+WobblynessLevel=1
+
+[Effect-kwin4_effect_translucency]
+Dialogs=90
+Inactive=90
+
+[ModifierOnlyShortcuts]
+Meta=org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu
 
 [NightColor]
 Active=true
-NightTemperature=2700
+NightTemperature=3000
 
 [Plugins]
 blurEnabled=true
 coverswitchEnabled=true
 cubeslideEnabled=true
+flipswitchEnabled=true
+force-decorations-gtk3Enabled=false
 forceblurEnabled=true
 glideEnabled=true
+hide-titlesEnabled=false
+highlightwindowEnabled=true
+kwin4_effect_dimscreenEnabled=true
 kwin4_effect_eyeonscreenEnabled=true
 kwin4_effect_fadeEnabled=false
 kwin4_effect_squashEnabled=false
+kwin4_effect_translucencyEnabled=false
 kwin4_effect_windowapertureEnabled=false
 magiclampEnabled=true
 minimizeallEnabled=false
@@ -37,11 +66,19 @@ wobblywindowsEnabled=true
 [Script-forceblur]
 blurExceptMatching=true
 blurMatching=false
-patterns=
+patterns=Peek
 
 [TabBox]
 BorderActivate=9
+DesktopLayout=org.kde.breeze.desktop
+DesktopListLayout=org.kde.breeze.desktop
 LayoutName=coverswitch
+TouchBorderActivate=9
+
+[Windows]
+ElectricBorderCooldown=650
+ElectricBorderDelay=400
 
 [org.kde.kdecoration2]
 ButtonsOnLeft=
+ButtonsOnRight=IAX

@@ -1,3 +1,15 @@
+[General]
+autoSaveImage=true
+copyImageToClipboard=true
+copySaveLocation=false
+printKeyActionRunning=FocusWindow
+useReleaseToCapture=true
+
 [GuiConfig]
-captureMode=5
-window-position=42,0
+captureMode=2
+quitAfterSaveCopyExport=true
+window-position=38,0
+
+[Save]
+lastSaveLocation=file:///home/nico/Pictures/Screenshot_20210607.png
+saveFilenameFormat=Screenshot_%T_%d

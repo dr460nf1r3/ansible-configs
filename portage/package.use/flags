@@ -15,13 +15,23 @@ dev-vcs/git PYTHON_SINGLE_TARGET: -python3_9 python3_10
 net-firewall/ufw PYTHON_TARGETS: -python3_9
 sys-block/systemd-swap PYTHON_TARGETS: python3_8
 
+## Ruby targets
+*/* RUBY_TARGETS: ruby30 ruby27 -ruby26
+
+## Ruby per-package
+dev-ruby/rbs RUBY_TARGETS: -ruby27 
+dev-ruby/rexml RUBY_TARGETS: -ruby27 
+dev-ruby/typeprof RUBY_TARGETS: -ruby27 
+dev-ruby/rss RUBY_TARGETS: -ruby27 
+
 ## Own stuff
 app-cdr/cdrtools schily-tools
 app-editors/vscode insiders ignore-gpu-blacklist substitute-urls
-app-emulation/qemu aio virgl virtfs usbredir qemu_user_targets_aarch64 qemu_softmmu_targets_x86_64 qemu_softmmu_targets_aarch64
+app-emulation/qemu aio virgl virtfs usbredir
 app-emulation/virt-manager gtk
 app-portage/layman sync-plugin-portage
 app-text/hunspell de
+dev-lang/ruby jit
 dev-libs/libpcre2 pcre32
 dev-util/electron optimize-thinlto optimize-webui system-openjpeg thinlto
 gnome-base/gnome-keyring -ssh-agent
@@ -43,7 +53,8 @@ media-video/pipewire aptx v4l
 net-libs/nodejs -lto
 net-misc/networkmanager iwd
 net-misc/nextcloud-client dolphin
-sys-apps/systemd gnuefi importd pkcs11 curl lzma
+sys-apps/systemd gnuefi importd pkcs11 curl lzma homed cryptsetup
+sys-auth/pambase homed
 sys-auth/polkit duktape
 sys-boot/grub mount -themes device-mapper
 sys-devel/gcc graphite lto pgo
@@ -128,8 +139,18 @@ media-video/mpv -vulkan
 # required by app-editors/vscode-1.56.2::pf4public
 # required by vscode (argument)
 >=net-libs/nodejs-16.2.0 inspector
-# required by gnome-base/gnome-keyring-40.0::gentoo
-# required by app-crypt/libsecret-0.20.4::gentoo
-# required by app-editors/vscode-1.56.2::pf4public
-# required by vscode (argument)
->=app-crypt/gcr-3.40.0 gtk
+# required by app-emulation/virt-manager-9999::gentoo[gtk]
+# required by @selected
+# required by @world (argument)
+>=net-misc/spice-gtk-9999 gtk3
+# required by media-sound/teamspeak-client-3.5.6-r4::gentoo
+# required by media-sound/teamspeak-client (argument)
+>=dev-qt/qtgui-5.15.2-r1 accessibility
+# required by media-sound/teamspeak-client-3.5.6-r4::gentoo
+# required by media-sound/teamspeak-client (argument)
+>=dev-qt/qtwebengine-5.15.2_p20210521 geolocation
+# required by net-print/cups-filters-1.28.8::pg_overlay[postscript]
+# required by net-print/cups-2.3.3_p2::gentoo
+# required by media-sound/spotify-1.1.55::gentoo
+# required by spotify (argument)
+>=app-text/ghostscript-gpl-9.54.0 cups

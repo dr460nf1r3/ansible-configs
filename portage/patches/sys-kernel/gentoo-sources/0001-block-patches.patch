@@ -1,7 +1,7 @@
-From 70077e84435fc4293c1fe52e5684c5ddcaced94d Mon Sep 17 00:00:00 2001
+From 083e8aca046da3492e485e5666c9f56252564f77 Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
 Date: Thu, 2 Jul 2020 19:16:43 +0200
-Subject: [PATCH 1/8] block, Kconfig.iosched: set default value of IOSCHED_BFQ
+Subject: [PATCH 1/7] block, Kconfig.iosched: set default value of IOSCHED_BFQ
  to yes
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
@@ -36,13 +36,13 @@ index 2f2158e05..e58b2953a 100644
  	BFQ I/O scheduler for BLK-MQ. BFQ distributes the bandwidth of
  	of the device among all processes according to their weights,
 -- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 
 
-From 2ae005cb420e94fb4fd0e4cce9922c2cf327d721 Mon Sep 17 00:00:00 2001
+From 9486555f2883370eb0e6c7949fcc734c18d34232 Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
 Date: Thu, 2 Jul 2020 19:26:24 +0200
-Subject: [PATCH 2/8] block: Fix depends for BLK_DEV_ZONED
+Subject: [PATCH 2/7] block: Fix depends for BLK_DEV_ZONED
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
 ---
@@ -63,13 +63,13 @@ index a2297edfd..f688ea5f0 100644
  	Block layer zoned block device support. This option enables
  	support for ZAC/ZBC/ZNS host-managed and host-aware zoned block
 -- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 
 
-From a7dbdf2c43a4e59944f837b37a8bc7b0f9f6239d Mon Sep 17 00:00:00 2001
+From 9e09046ec26857dd243655cb75fb127bc01cf957 Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
 Date: Thu, 22 Oct 2020 23:54:33 +0200
-Subject: [PATCH 3/8] block: set rq_affinity = 2 for full multithreading I/O
+Subject: [PATCH 3/7] block: set rq_affinity = 2 for full multithreading I/O
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
 ---
@@ -77,10 +77,10 @@ Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 0d81eed39..9db58a821 100644
+index 158aefae1..e4ab20964 100644
 --- a/include/linux/blkdev.h
 +++ b/include/linux/blkdev.h
-@@ -626,6 +626,7 @@ struct request_queue {
+@@ -620,6 +620,7 @@ struct request_queue {
  
  #define QUEUE_FLAG_MQ_DEFAULT	((1 << QUEUE_FLAG_IO_STAT) |		\
  				 (1 << QUEUE_FLAG_SAME_COMP) |		\
@@ -89,13 +89,13 @@ index 0d81eed39..9db58a821 100644
  
  void blk_queue_flag_set(unsigned int flag, struct request_queue *q);
 -- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 
 
-From 7095edcdf106d2a2742aac87985ea5fcb81ca3ac Mon Sep 17 00:00:00 2001
+From cccc5df3920618f2d38ff7c71e7a9fb8616a6776 Mon Sep 17 00:00:00 2001
 From: Piotr Gorski <lucjan.lucjanov@gmail.com>
 Date: Fri, 3 Jul 2020 12:58:15 +0200
-Subject: [PATCH 4/8] block: Add CONFIG to rename the mq-deadline scheduler
+Subject: [PATCH 4/7] block: Add CONFIG to rename the mq-deadline scheduler
 
 Signed-off-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
 ---
@@ -125,7 +125,7 @@ index e58b2953a..9e5a3c5c6 100644
  	tristate "Kyber I/O scheduler"
  	help
 diff --git a/block/elevator.c b/block/elevator.c
-index 0c1e9a1b4..632c81def 100644
+index 293c5c813..90181ad94 100644
 --- a/block/elevator.c
 +++ b/block/elevator.c
 @@ -624,7 +624,11 @@ static struct elevator_type *elevator_get_default(struct request_queue *q)
@@ -141,10 +141,10 @@ index 0c1e9a1b4..632c81def 100644
  
  /*
 diff --git a/block/mq-deadline.c b/block/mq-deadline.c
-index df34f773e..25fec9494 100644
+index 3aabcd2a7..780f4422d 100644
 --- a/block/mq-deadline.c
 +++ b/block/mq-deadline.c
-@@ -790,8 +790,12 @@ static struct elevator_type mq_deadline = {
+@@ -793,8 +793,12 @@ static struct elevator_type mq_deadline = {
  	.queue_debugfs_attrs = deadline_queue_debugfs_attrs,
  #endif
  	.elevator_attrs = deadline_attrs,
@@ -158,13 +158,13 @@ index df34f773e..25fec9494 100644
  	.elevator_owner = THIS_MODULE,
  };
 -- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 
 
-From 1c7bd7a7ff516c77ac97274027c6c61797bb625a Mon Sep 17 00:00:00 2001
+From 61749b5595cbc0f2dfb06bd60e09d59968ca0031 Mon Sep 17 00:00:00 2001
 From: Steven Barrett <steven@liquorix.net>
 Date: Wed, 27 Jan 2021 14:27:35 -0600
-Subject: [PATCH 5/8] ZEN: Fix mq-deadline scheduler renaming
+Subject: [PATCH 5/7] ZEN: Fix mq-deadline scheduler renaming
 
 In recent ZEN commit ("ZEN: Add CONFIG to rename the mq-deadline
 scheduler"), we only handled the elevator name if mq-deadline, but not
@@ -175,10 +175,10 @@ mq-deadline-nodefault without errors.
  1 file changed, 5 insertions(+)
 
 diff --git a/block/mq-deadline.c b/block/mq-deadline.c
-index 25fec9494..b2b2f7a15 100644
+index 780f4422d..175436687 100644
 --- a/block/mq-deadline.c
 +++ b/block/mq-deadline.c
-@@ -792,6 +792,7 @@ static struct elevator_type mq_deadline = {
+@@ -795,6 +795,7 @@ static struct elevator_type mq_deadline = {
  	.elevator_attrs = deadline_attrs,
  #ifdef CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
  	.elevator_name = "mq-deadline-nodefault",
@@ -186,7 +186,7 @@ index 25fec9494..b2b2f7a15 100644
  #else
  	.elevator_name = "mq-deadline",
  	.elevator_alias = "deadline",
-@@ -799,7 +800,11 @@ static struct elevator_type mq_deadline = {
+@@ -802,7 +803,11 @@ static struct elevator_type mq_deadline = {
  	.elevator_features = ELEVATOR_F_ZBD_SEQ_WRITE,
  	.elevator_owner = THIS_MODULE,
  };
@@ -199,13 +199,13 @@ index 25fec9494..b2b2f7a15 100644
  static int __init deadline_init(void)
  {
 -- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 
 
-From c97147d04df856b500049315b37e7b65586a604d Mon Sep 17 00:00:00 2001
+From acedec5628550884e6d5e8c9fe251bcbc8bc2c51 Mon Sep 17 00:00:00 2001
 From: Steven Barrett <steven@liquorix.net>
 Date: Wed, 27 Jan 2021 17:39:54 -0600
-Subject: [PATCH 6/8] ZEN: Increase max elevator name size
+Subject: [PATCH 6/7] ZEN: Increase max elevator name size
 
 After renaming mq-deadline to mq-deadline-nodefault, setting the new
 scheduler name would always fail.  Part of that reason was the module
@@ -219,7 +219,7 @@ Increase to 24 so we can support our longer IO scheduler names.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/linux/elevator.h b/include/linux/elevator.h
-index b5abf740a..4bff11535 100644
+index dcb2f9022..0b3c67155 100644
 --- a/include/linux/elevator.h
 +++ b/include/linux/elevator.h
 @@ -52,7 +52,7 @@ struct elevator_mq_ops {
@@ -232,13 +232,13 @@ index b5abf740a..4bff11535 100644
  struct elv_fs_entry {
  	struct attribute attr;
 -- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 
 
-From 457a1e2a3e614ef5065463384c45187786023700 Mon Sep 17 00:00:00 2001
+From 83bf6161d0cb26cbfb8c2770e7fcfac9572f49c0 Mon Sep 17 00:00:00 2001
 From: Tom Saeger <tom.saeger () oracle ! com>
 Date: Fri, 26 Mar 2021 03:04:57 +0000
-Subject: [PATCH 7/8] block: fix trivial typos in comments
+Subject: [PATCH 7/7] block: fix trivial typos in comments
 
 s/Additonal/Additional/
 s/assocaited/associated/
@@ -278,10 +278,10 @@ Signed-off-by: Tom Saeger <tom.saeger@oracle.com>
  16 files changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/block/bfq-iosched.c b/block/bfq-iosched.c
-index 05595f828..887c9c857 100644
+index bc319931d..23212167c 100644
 --- a/block/bfq-iosched.c
 +++ b/block/bfq-iosched.c
-@@ -1827,7 +1827,7 @@ static void bfq_bfqq_handle_idle_busy_switch(struct bfq_data *bfqd,
+@@ -1798,7 +1798,7 @@ static void bfq_bfqq_handle_idle_busy_switch(struct bfq_data *bfqd,
  	 * As for throughput, we ask bfq_better_to_idle() whether we
  	 * still need to plug I/O dispatching. If bfq_better_to_idle()
  	 * says no, then plugging is not needed any longer, either to
@@ -290,7 +290,7 @@ index 05595f828..887c9c857 100644
  	 * the best option is to stop plugging I/O, as not doing so
  	 * would certainly lower throughput. We may end up in this
  	 * case if: (1) upon a dispatch attempt, we detected that it
-@@ -5087,7 +5087,7 @@ void bfq_put_queue(struct bfq_queue *bfqq)
+@@ -4944,7 +4944,7 @@ void bfq_put_queue(struct bfq_queue *bfqq)
  		 * by the fact that bfqq has just been merged.
  		 * 2) burst_size is greater than 0, to handle
  		 * unbalanced decrements. Unbalanced decrements may
@@ -459,10 +459,10 @@ index 4d97fb6dd..7a3cf790d 100644
  	for (bio = rq->bio; bio; bio = bio->bi_next) {
  		WARN_ON_ONCE((bio->bi_opf & REQ_FAILFAST_MASK) &&
 diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 9b439175f..bae47c4ef 100644
+index 0e120547c..26aa57ae7 100644
 --- a/block/blk-mq.c
 +++ b/block/blk-mq.c
-@@ -916,7 +916,7 @@ static bool blk_mq_check_expired(struct blk_mq_hw_ctx *hctx,
+@@ -915,7 +915,7 @@ static bool blk_mq_check_expired(struct blk_mq_hw_ctx *hctx,
  
  	/*
  	 * Just do a quick check if it is expired before locking the request in
@@ -471,7 +471,7 @@ index 9b439175f..bae47c4ef 100644
  	 */
  	if (!blk_mq_req_expired(rq, next))
  		return true;
-@@ -1635,7 +1635,7 @@ static bool blk_mq_has_sqsched(struct request_queue *q)
+@@ -1634,7 +1634,7 @@ static bool blk_mq_has_sqsched(struct request_queue *q)
  }
  
  /*
@@ -594,96 +594,5 @@ index 6599bac0a..384aa4837 100644
  
  	switch (opcode) {
 -- 
-2.31.1.621.g97eea85a0a
-
-
-From 33a4c194099e229096b5edbd2c745bde8334e91c Mon Sep 17 00:00:00 2001
-From: Jan Kara <jack () suse ! cz>
-Date: Thu, 20 May 2021 11:25:28 +0000
-Subject: [PATCH 8/8] block: Do not pull requests from the scheduler when we
- cannot dispatch them
-
-Provided the device driver does not implement dispatch budget accounting
-(which only SCSI does) the loop in __blk_mq_do_dispatch_sched() pulls
-requests from the IO scheduler as long as it is willing to give out any.
-That defeats scheduling heuristics inside the scheduler by creating
-false impression that the device can take more IO when it in fact
-cannot.
-
-For example with BFQ IO scheduler on top of virtio-blk device setting
-blkio cgroup weight has barely any impact on observed throughput of
-async IO because __blk_mq_do_dispatch_sched() always sucks out all the
-IO queued in BFQ. BFQ first submits IO from higher weight cgroups but
-when that is all dispatched, it will give out IO of lower weight cgroups
-as well. And then we have to wait for all this IO to be dispatched to
-the disk (which means lot of it actually has to complete) before the
-IO scheduler is queried again for dispatching more requests. This
-completely destroys any service differentiation.
-
-So grab request tag for a request pulled out of the IO scheduler already
-in __blk_mq_do_dispatch_sched() and do not pull any more requests if we
-cannot get it because we are unlikely to be able to dispatch it. That
-way only single request is going to wait in the dispatch list for some
-tag to free.
-
-Signed-off-by: Jan Kara <jack@suse.cz>
----
- block/blk-mq-sched.c | 12 +++++++++++-
- block/blk-mq.c       |  2 +-
- block/blk-mq.h       |  2 ++
- 3 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/block/blk-mq-sched.c b/block/blk-mq-sched.c
-index fdeb9773b..1a2b5b15a 100644
---- a/block/blk-mq-sched.c
-+++ b/block/blk-mq-sched.c
-@@ -163,9 +163,19 @@ static int __blk_mq_do_dispatch_sched(struct blk_mq_hw_ctx *hctx)
- 		 * in blk_mq_dispatch_rq_list().
- 		 */
- 		list_add_tail(&rq->queuelist, &rq_list);
-+		count++;
- 		if (rq->mq_hctx != hctx)
- 			multi_hctxs = true;
--	} while (++count < max_dispatch);
-+
-+		/*
-+		 * If we cannot get tag for the request, stop dequeueing
-+		 * requests from the IO scheduler. We are unlikely to be able
-+		 * to submit them anyway and it creates false impression for
-+		 * scheduling heuristics that the device can take more IO.
-+		 */
-+		if (!blk_mq_get_driver_tag(rq))
-+			break;
-+	} while (count < max_dispatch);
- 
- 	if (!count) {
- 		if (run_queue)
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index bae47c4ef..5e720ed8e 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -1100,7 +1100,7 @@ static bool __blk_mq_get_driver_tag(struct request *rq)
- 	return true;
- }
- 
--static bool blk_mq_get_driver_tag(struct request *rq)
-+bool blk_mq_get_driver_tag(struct request *rq)
- {
- 	struct blk_mq_hw_ctx *hctx = rq->mq_hctx;
- 
-diff --git a/block/blk-mq.h b/block/blk-mq.h
-index 3616453ca..1f72594d1 100644
---- a/block/blk-mq.h
-+++ b/block/blk-mq.h
-@@ -242,6 +242,8 @@ static inline void blk_mq_put_driver_tag(struct request *rq)
- 	__blk_mq_put_driver_tag(rq->mq_hctx, rq);
- }
- 
-+bool blk_mq_get_driver_tag(struct request *rq);
-+
- static inline void blk_mq_clear_mq_map(struct blk_mq_queue_map *qmap)
- {
- 	int cpu;
--- 
-2.31.1.621.g97eea85a0a
+2.32.0.rc1
 

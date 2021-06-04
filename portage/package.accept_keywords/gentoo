@@ -55,7 +55,6 @@ dev-python/pymountboot **
 dev-python/ssl-fetch **
 dev-util/cppunit **
 dev-util/mdds **
-dev-util/mdds **
 dev-util/meson **
 dev-util/ninja **
 dev-util/pkgconf **
@@ -67,7 +66,7 @@ dev-vcs/lazygit  **
 games-util/lutris **
 gui-apps/wl-clipboard **
 kde-misc/latte-dock **
-media-gfx/gimp **
+#media-gfx/gimp **
 media-gfx/imagemagick **
 media-libs/babl **
 media-libs/dav1d **
