@@ -37,10 +37,8 @@ dev-libs/ell **
 dev-libs/json-c **
 dev-libs/kpeoplevcard **
 dev-libs/libevdev **
-dev-libs/libixion **
 dev-libs/libmspack **
 dev-libs/libnl **
-dev-libs/liborcus **
 dev-libs/librevenge **
 dev-libs/libsass **
 dev-libs/libuv **
@@ -54,7 +52,6 @@ dev-python/namespace-sphinxcontrib **
 dev-python/pymountboot **
 dev-python/ssl-fetch **
 dev-util/cppunit **
-dev-util/mdds **
 dev-util/meson **
 dev-util/ninja **
 dev-util/pkgconf **
@@ -66,7 +63,6 @@ dev-vcs/lazygit  **
 games-util/lutris **
 gui-apps/wl-clipboard **
 kde-misc/latte-dock **
-#media-gfx/gimp **
 media-gfx/imagemagick **
 media-libs/babl **
 media-libs/dav1d **
@@ -167,6 +163,12 @@ x11-terms/alacritty **
 ## Not bleeding due to massive rebuilds caused
 #dev-libs/libevent **
 #sys-libs/libblockdev **
+
+## Prevent other issues
+#dev-libs/libixion ** # Libreoffice version conflict
+#dev-libs/liborcus ** # Libreoffice version conflict
+#dev-util/mdds ** # Libreoffice version conflict
+#media-gfx/gimp ** # LTO causes coredumps
 
 ## Too much bleed (broken build)
 #app-emulation/qemu **
