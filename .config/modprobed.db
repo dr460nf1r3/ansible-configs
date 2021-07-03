@@ -35,6 +35,7 @@ i2c_algo_bit
 i2c_i801
 i2c_smbus
 i915
+inet_diag
 intel_cstate
 intel_pch_thermal
 intel_pmc_bxt
@@ -112,12 +113,15 @@ syscopyarea
 sysfillrect
 sysimgblt
 tcp_bbr2
+tcp_diag
 thinkpad_acpi
 trusted
+tun
 typec
 typec_ucsi
 uas
 ucsi_acpi
+udp_diag
 usbnet
 usb_storage
 uvcvideo
@@ -131,5 +135,6 @@ x86_pkg_temp_thermal
 xt_CHECKSUM
 xt_conntrack
 xt_MASQUERADE
+xt_recent
 zram
 zstd

@@ -29,7 +29,7 @@ app-cdr/cdrtools schily-tools
 app-editors/vscode insiders ignore-gpu-blacklist substitute-urls
 app-emulation/qemu aio virgl virtfs usbredir
 app-emulation/virt-manager gtk
-app-portage/layman sync-plugin-portage
+app-office/libreoffice -vulkan
 app-text/hunspell de
 dev-lang/ruby jit
 dev-libs/libpcre2 pcre32
@@ -47,16 +47,19 @@ mail-client/thunderbird hwaccel lto
 media-fonts/fira-sans -otf ttf
 media-fonts/noto -extra
 media-fonts/noto-emoji buildfont
+media-gfx/imagemagick webp 
 media-libs/lcms threads
 media-libs/libsdl2 -wayland
+media-video/obs-studio v4l
 media-video/pipewire aptx v4l
 net-libs/nodejs -lto
 net-misc/networkmanager iwd
 net-misc/nextcloud-client dolphin
+sys-apps/less -less-select -lesspipe original-gentoo
 sys-apps/systemd gnuefi importd pkcs11 curl lzma homed cryptsetup
 sys-auth/pambase homed
 sys-auth/polkit duktape
-sys-boot/grub mount -themes device-mapper
+sys-boot/grub mount -themes device-mapper truetype
 sys-devel/gcc graphite lto pgo
 www-client/firefox hwaccel lto pgo
 x11-base/xorg-server xephyr kdrive
@@ -106,7 +109,8 @@ media-video/mpv -vulkan
 >=media-libs/libvpx-1.10.0 postproc
 # required by www-client/firefox-88.0.1::gentoo[pgo]
 # required by firefox (argument)
->=x11-base/xorg-server-1.20.11 xvfb# required by media-gfx/gimp-9999::gentoo
+>=x11-base/xorg-server-1.20.11 xvfb
+# required by media-gfx/gimp-9999::gentoo
 # required by @selected
 # required by @world (argument)
 >=media-libs/babl-9999 introspection
@@ -154,3 +158,12 @@ media-video/mpv -vulkan
 # required by media-sound/spotify-1.1.55::gentoo
 # required by spotify (argument)
 >=app-text/ghostscript-gpl-9.54.0 cups
+# required by gnome-base/gnome-keyring-40.0::gentoo
+# required by app-crypt/libsecret-0.20.4::gentoo
+# required by app-editors/vscodium-1.56.2::gentoo
+# required by vscodium (argument)
+>=app-crypt/gcr-3.40.0 gtk
+# required by kde-plasma/xdg-desktop-portal-kde-9999::kde
+# required by sys-apps/flatpak-1.10.2::gentoo[kde]
+# required by flatpak (argument)
+>=dev-qt/qtprintsupport-5.15.2 cups
