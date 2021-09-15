@@ -5,6 +5,7 @@ Exec=krdc -qwindowtitle %c %u
 GenericName[en_GB]=Remote Desktop Client
 GenericName=Remote Desktop Client
 Icon=krdc
+MimeType=x-scheme-handler/vnc;x-scheme-handler/rdp
 Name=Remote Desktop Client
 NoDisplay=false
 Path[$e]=

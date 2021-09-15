@@ -1,0 +1,15 @@
+[Desktop Entry]
+Categories=Network;InstantMessaging
+Comment=User-first, privacy focused chat platform.
+Exec=revolt-desktop
+Icon=discord-canary
+Name=Revolt
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+StartupWMClass=RevoltDesktop
+Terminal=0
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

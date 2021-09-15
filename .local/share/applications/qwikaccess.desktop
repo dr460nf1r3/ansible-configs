@@ -1,0 +1,17 @@
+[Desktop Entry]
+Categories=Qt;System;
+Comment=A quick access utility for various type of actions
+Comment[de]=Eine Anwendung zum Schnellstart von Aktionen
+Exec=qwikaccess
+Icon=preferences-system-login
+Name=Qwikaccess
+Name[de]=Qwikaccess
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+TryExec=/usr/bin/qwikaccess
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

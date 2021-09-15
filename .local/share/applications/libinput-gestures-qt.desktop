@@ -1,0 +1,17 @@
+[Desktop Entry]
+Categories=Application;System;
+Comment=Setup utility for libinput-gestures
+Comment[de]=Anwendung zur Konfiguration von libinput-gestures
+Exec=libinput-gestures-qt
+Icon=libinput-gestures-qt
+Name=Libinput Gestures
+Name[de]=Libinput Gestures
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+TryExec=libinput-gestures-qt
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,16 @@
+[Desktop Entry]
+Categories=Game;
+Comment=Open source gaming platform
+Exec=lutris %U
+Icon=lutris
+Keywords=gaming;wine;emulator;
+MimeType=x-scheme-handler/lutris;
+Name=Lutris
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
