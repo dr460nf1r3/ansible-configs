@@ -27,6 +27,9 @@ paru -S spotify-adblock-git
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
 sudo cp ./systemd/system/getty@tty1.service.d /etc/systemd/system/getty@tty1.service.d
 
+# Starship config
+cp ./.config/starship.toml ~/.config/starship.toml
+
 # Systemctl services (system & user)
 sudo systemctl mask lvm2-lvmpolld.service
 sudo systemctl mask lvm2-lvmpolld.socket
