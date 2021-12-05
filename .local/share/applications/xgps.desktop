@@ -1,0 +1,19 @@
+[Desktop Entry]
+Categories=Application;Maps;Utility;
+Comment=Display GPS information from a gpsd daemon
+Comment[de]=Informationen vom gpsd daemon anzeigen
+Encoding=UTF-8
+Exec=xgps
+GenericName=GPS information
+Icon=gps
+Name=Xgps
+Name[de]=Xgps
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+TryExec=xgps
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

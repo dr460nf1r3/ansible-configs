@@ -1,15 +1,19 @@
+[$Version]
+update_info=spectacle_clipboard.upd:clipboard-settings-change,spectacle_newConfig.upd:spectacle-new-config,spectacle_rememberregion.upd:spectacle-migrate-rememberregion
+
 [General]
 autoSaveImage=true
-copyImageToClipboard=true
-copySaveLocation=false
+clipboardGroup=PostScreenshotCopyImage
 printKeyActionRunning=FocusWindow
+rememberLastRectangularRegion=2
 useReleaseToCapture=true
 
 [GuiConfig]
 captureMode=2
 quitAfterSaveCopyExport=true
-window-position=38,0
+window-position=0,30
 
 [Save]
-lastSaveLocation=file:///home/nico/Pictures/Screenshot_20210607.png
+defaultSaveLocation=file:///home/nico/Pictures/Screenshots/
+lastSaveLocation=file:///home/nico/Pictures/Screenshots/Screenshot_- : sudo systemd-nspawn_1.png
 saveFilenameFormat=Screenshot_%T_%d

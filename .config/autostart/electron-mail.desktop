@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=ElectronMail
+Exec=/opt/ElectronMail/electron-mail --js-flags="--max-old-space-size=12288" %U
+Terminal=false
+Type=Application
+Icon=electron-mail
+StartupWMClass=electron-mail
+Comment=Unofficial ProtonMail Desktop App
+Categories=Office;

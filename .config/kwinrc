@@ -1,3 +1,6 @@
+[$Version]
+update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend
+
 [Compositing]
 GLCore=true
 OpenGLIsUnsafe=false
@@ -29,21 +32,12 @@ Drag=85
 Stiffness=10
 WobblynessLevel=1
 
-[Effect-kwin4_effect_translucency]
-Dialogs=90
-Inactive=90
-
 [ModifierOnlyShortcuts]
 Meta=org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu
-
-[NightColor]
-Active=true
-NightTemperature=3000
 
 [Plugins]
 blurEnabled=true
 coverswitchEnabled=true
-cubeslideEnabled=true
 flipswitchEnabled=true
 force-decorations-gtk3Enabled=false
 forceblurEnabled=true
@@ -56,11 +50,9 @@ kwin4_effect_fadeEnabled=false
 kwin4_effect_squashEnabled=false
 kwin4_effect_translucencyEnabled=false
 kwin4_effect_windowapertureEnabled=false
+lattewindowcolorsEnabled=true
 magiclampEnabled=true
 minimizeallEnabled=false
-slideEnabled=false
-synchronizeskipswitcherEnabled=false
-videowallEnabled=false
 wobblywindowsEnabled=true
 
 [Script-forceblur]
@@ -70,15 +62,11 @@ patterns=Peek
 
 [TabBox]
 BorderActivate=9
-DesktopLayout=org.kde.breeze.desktop
-DesktopListLayout=org.kde.breeze.desktop
-LayoutName=coverswitch
 TouchBorderActivate=9
 
 [Windows]
-ElectricBorderCooldown=650
-ElectricBorderDelay=400
+BorderlessMaximizedWindows=true
 
 [org.kde.kdecoration2]
-ButtonsOnLeft=
-ButtonsOnRight=IAX
+ButtonsOnLeft=XAI
+ButtonsOnRight=

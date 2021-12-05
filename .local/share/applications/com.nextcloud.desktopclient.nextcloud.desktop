@@ -1,0 +1,26 @@
+[Desktop Action Quit]
+Exec=nextcloud --quit
+Icon=nextcloud
+Name=Quit Nextcloud
+
+[Desktop Entry]
+Actions=Quit;
+Categories=Utility;X-SuSE-SyncUtility;
+Comment=Nextcloud desktop synchronisation client
+Exec=nextcloud
+GenericName[en_GB]=Folder Sync
+GenericName=Folder Sync
+Icon=goa-account-owncloud
+Keywords=Nextcloud;syncing;file;sharing;
+MimeType=application/vnd.nextcloud;
+Name[en_GB]=Nextcloud desktop sync client
+Name=Nextcloud Desktop
+NoDisplay=false
+Path[$e]=
+StartupNotify=true
+Terminal=0
+TerminalOptions=
+Type=Application
+X-GNOME-Autostart-Delay=3
+X-KDE-SubstituteUID=false
+X-KDE-Username=

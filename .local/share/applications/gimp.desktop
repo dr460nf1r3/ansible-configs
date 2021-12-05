@@ -12,6 +12,7 @@ Name=GIMP
 NoDisplay=false
 Path[$e]=
 StartupNotify=true
+StartupWMClass=gimp-2.99
 Terminal=0
 TerminalOptions=
 TryExec=gimp-2.99

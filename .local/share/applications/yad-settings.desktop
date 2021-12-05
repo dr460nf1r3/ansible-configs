@@ -1,15 +1,16 @@
 [Desktop Entry]
-Categories=GNOME;GTK;System;Garuda-Setup;
-Comment=Change system settings
+Categories=GTK;Settings;
+Comment=Simple GUI for editing YAD settings
 Encoding=UTF-8
-Exec=garuda-assistant
-Icon=stacer
-Name=Garuda Assistant
+Exec=yad-settings
+Icon=yad-icon-browser
+Name=YAD settings
 NoDisplay=false
 Path[$e]=
 StartupNotify=true
 Terminal=0
 TerminalOptions=
+TryExec=yad-settings
 Type=Application
 X-KDE-SubstituteUID=false
 X-KDE-Username=

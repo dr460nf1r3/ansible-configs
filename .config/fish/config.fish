@@ -1,7 +1,15 @@
-## Set values
+﻿## Set values
 # Hide welcome message
 set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT "1"
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MCFLY_FUZZY true
+
+
+## Export variable need for qt-theme
+if type "qtile" >> /dev/null 2>&1
+   set -x QT_QPA_PLATFORMTHEME "qt5ct"
+end
 
 # Set settings for https://github.com/franciscolourenco/done
 set -U __done_min_cmd_duration 10000
@@ -9,6 +17,11 @@ set -U __done_notification_urgency_level low
 
 
 ## Environment setup
+# Apply .profile: use this to put fish compatible .profile stuff in
+if test -f ~/.fish_profile
+  source ~/.fish_profile
+end
+
 # Add ~/.local/bin to PATH
 if test -d ~/.local/bin
     if not contains -- ~/.local/bin $PATH
@@ -28,6 +41,14 @@ end
 if status --is-interactive
    source ("/usr/bin/starship" init fish --print-full-init | psub)
 end
+
+
+## Mcfly terminal search
+mcfly init fish | source
+
+
+## Advanced command-not-found hook
+source /usr/share/doc/find-the-command/ftc.fish
 
 
 ## Functions
@@ -90,33 +111,63 @@ alias lt='exa -aT --color=always --group-directories-first --icons' # tree listi
 alias l.="exa -a | egrep '^\.'"                                     # show only dotfiles
 
 # Replace some more things with better alternatives
-#alias cat='bat --style header --style rules --style snip --style changes --style header'
+alias cat='bat --style header --style rules --style snip --style changes --style header'
+[ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
 # Common use
-alias ......='cd ../../../../..'
-alias .....='cd ../../../..'
-alias ....='cd ../../..'
-alias ...='cd ../..'
-alias ..='cd ..'
-alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB (expac must be installed)
-alias dir='dir --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grep='grep --color=auto'
-alias grubup="doas grub-mkconfig -o /boot/grub/grub.cfg"
-alias hw='hwinfo --short'                                   # Hardware Info
-alias ip='ip --color'
-alias psmem10='ps auxf | sort -nr -k 4 | head -10'
-alias psmem='ps auxf | sort -nr -k 4'
-alias rmpkg="sudo pacman -Rdd"
-alias sudo='doas'
+alias grubup="sudo update-grub"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
 alias tarnow='tar -acf '
 alias untar='tar -zxvf '
-alias vdir='vdir --color=auto'
 alias wget='wget -c '
+alias rmpkg="sudo pacman -Rdd"
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias upd='/usr/bin/update'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias hw='hwinfo --short'                                   # Hardware Info
+alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB
+alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'			# List amount of -git packages
+
+# Get fastest mirrors 
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist" 
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist" 
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" 
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist" 
+
+# Help people new to Arch
+alias apt='man pacman'
+alias apt-get='man pacman'
+alias please='sudo'
+alias tb='nc termbin.com 9999'
 
 # Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
+
+# Misc useful
+alias pacdiff='sudo -H DIFFPROG=kompare pacdiff'
+alias makepkg='makepkg -Ccirs'
+alias chaotic='sudo systemd-nspawn -b -D /var/lib/machines/chaotic'
+alias dd='dd progress=status'
+alias htop='btop'
+alias docker='podman'
+
+# Git aliases
+alias gpr='git pull --rebase'
+alias gclone='git clone'
+alias gpush='git push'
+alias gpull='git pull'
+alias gcommit='git commit -m'
+alias gitlog='git log --oneline --graph --decorate --all'
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
@@ -124,45 +175,8 @@ alias jctl="journalctl -p 3 -xb"
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
-# Youtube to MP3 and videos to MP4
-alias ytmp3="youtube-dl --output '~/Music/Downloaded/%(title)s.%(ext)s' --extract-audio --audio-format mp3"
-alias vidtomp4="youtube-dl --output '~/Videos/Downloaded/%(title)s.%(ext)s' -f 'mp4'"
-
-# Journalctl logs
-alias jlogs='journalctl -b -p 4..1'
-
-# Git aliases
-alias gclone='git clone'
-alias gcommit='git commit -m'
-alias gpr='git pull --rebase'
-alias gpull='git pull'
-alias gpush='git push'
-
-# Arch Linux
-alias alct="sudo systemd-nspawn -D /var/lib/machines/arch"
-alias alshell='machinectl shell nico@arch'
-
-# Check kernel version
-alias kernels='curl --no-progress-meter https://www.kernel.org | grep "<td><strong>" | cut -d "<" -f3 | cut -d ">" -f2'
-
-# Gentoo
-alias arch-run="xhost +local:; sudo machinectl login arch; xhost -;"
-alias flags='equery uses'
-alias keyw='doas micro /etc/portage/package.accept_keywords/gentoo'
-alias makec='doas micro /etc/portage/make.conf'
-alias prov='e-file'
-alias rebuild='revdep-rebuild -v'
-alias unl='doas cryptsetup luksOpen /dev/sda3 arch && doas mount /dev/mapper/arch /mnt/arch'
-alias upd='doas emerge --sync && doas emerge -auUvD @world && doas smart-live-rebuild && doas eix-update && fish_update_completions && doas updatedb'
-alias updlive='doas smart-live-rebuild'
-alias uses='doas micro /etc/portage/package.use/flags'
-alias watchc='doas watch genlop -unc'
-alias watchd='sudo tail -f /var/log/emerge-fetch.log'
-
-# Arch maintenance
-alias makepkg='conty.sh makepkg'
 
 ## Run paleofetch if session is interactive
 if status --is-interactive
-   neofetch
+   fastfetch --load-config neofetch -l gentoo
 end

@@ -1,0 +1,13 @@
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[user]
+	email = njcrypted@protonmail.com
+	name = dr460nf1r3
+	signingkey = B5C20B53B5FB19ED
+[tag]
+    gpgsign = true
+    forceSignAnnotated = true

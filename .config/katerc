@@ -1,21 +1,15 @@
 [General]
-Close After Last=false
+Close After Last=true
 Config Revision=10
 Days Meta Infos=30
-Expand Tabs=true
-Modified Notification=true
-Quick Open List Mode=0
-Quick Open Search Mode=0
-Recent File List Entry Count=10
-Restore Window Configuration=true
 Save Meta Infos=true
 Show Full Path in Title=false
 Show Menu Bar=true
 Show Status Bar=true
 Show Tab Bar=true
-Show Tabs Close Button=true
-Startup Session=manual
-Tabbar Tab Limit=0
+
+[KFileDialog Settings]
+detailViewIconSize=16
 
 [KTextEditor Document]
 Allow End of Line Detection=true
@@ -38,7 +32,7 @@ Newline at End of File=true
 On-The-Fly Spellcheck=false
 Overwrite Mode=false
 PageUp/PageDown Moves Cursor=false
-Remove Spaces=0
+Remove Spaces=1
 ReplaceTabsDyn=true
 Show Spaces=0
 Show Tabs=true
@@ -58,23 +52,23 @@ Fallback Encoding=ISO 8859-15
 
 [KTextEditor Renderer]
 Animate Bracket Matching=true
-Auto Color Theme Selection=false
-Color Theme=gruvbox Dark
+Auto Color Theme Selection=true
+Color Theme=Breeze Dark
 Font=FantasqueSansMono Nerd Font Mono,11,-1,5,50,0,0,0,0,0
-Show Indentation Lines=true
-Show Whole Bracket Expression=true
+Show Indentation Lines=false
+Show Whole Bracket Expression=false
 Word Wrap Marker=false
 
 [KTextEditor View]
 Allow Mark Menu=true
-Auto Brackets=true
+Auto Brackets=false
 Auto Center Lines=0
 Auto Completion=true
 Auto Completion Preselect First Entry=true
 Backspace Remove Composed Characters=false
 Bookmark Menu Sorting=0
-Bracket Match Preview=true
-Chars To Enclose Selection=
+Bracket Match Preview=false
+Chars To Enclose Selection=<>(){}[]'"
 Default Mark Type=1
 Dynamic Word Wrap=true
 Dynamic Word Wrap Align Indent=80
@@ -102,7 +96,7 @@ Search/Replace Flags=140
 Show Line Count=false
 Show Scrollbars=0
 Show Word Count=false
-Smart Copy Cut=false
+Smart Copy Cut=true
 Text Drag And Drop=true
 User Sets Of Chars To Enclose Selection=
 Vi Input Mode Steal Keys=false
@@ -111,11 +105,21 @@ Word Completion=true
 Word Completion Minimal Word Length=3
 Word Completion Remove Tail=true
 
+[KTextEditor::Search]
+Search History=akonadi,sync
+
 [Konsole]
 AutoSyncronize=true
 RemoveExtension=false
-RunPrefix=
-SetEditor=false
+
+[MainWindow]
+eDP HDMI-A-0 Height 1920x1080=704
+eDP HDMI-A-0 Width 1920x1080=945
+eDP Height 1920x1080=621
+eDP Width 1920x1080=964
+
+[UiSettings]
+ColorScheme=
 
 [filetree]
 editShade=4,86,103

@@ -1,0 +1,7 @@
+# .bash_profile for servers
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+# Autostart Tmux
+if [ "$SSH_CLIENT" != "" ]
+    then  exec tmux
+fi
