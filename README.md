@@ -2,7 +2,7 @@
 
 ## Ansible
 
-- The Ansible configuration is used to quickly perform reproducable environments after reinstallations. It is split in servers and workstations. 
+- The Ansible configuration is used to quickly perform reproducable environments after reinstallations. It is split in servers and workstations.
 
 ## T470_gentoo
 
