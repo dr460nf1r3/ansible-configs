@@ -88,6 +88,7 @@ packages_remove:
   - ttf-opensans
   - zram-generator
 packages_install_after:
+  - alpm_octopi_utils
   - exa-git
   - fish-git
   - wireplumber-git

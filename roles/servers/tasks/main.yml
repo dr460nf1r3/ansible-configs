@@ -5,20 +5,7 @@
     mode: 0644
     owner: root
     src: pacman.conf.j2
-- name: Update package cache
-  pacman:
-    update_cache: yes
-- name: Install needed applications
-  pacman:
-    name: "{{ packages_install }}"
-    state: present
-  with_items: "{{ packages_install }}"
-- name: Remove unneeded or conflicting applications
-  pacman:
-    name: "{{ packages_remove }}"
-    state: absent
-    force: yes
-  with_items: "{{ packages_remove }}"
+  when: packages_install_after is defined
 - name: Configure pacman mirror
   template:
     dest: /etc/pacman.d/mirrorlist

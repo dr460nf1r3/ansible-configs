@@ -24,6 +24,29 @@
       - smartmontools
       - vnstat
     state: present
+- name: Install needed applications
+  pacman:
+    name: "{{ packages_install }}"
+    state: present
+  with_items: "{{ packages_install }}"
+  when: packages_install is defined
+- name: Remove unneeded or conflicting applications
+  pacman:
+    name: "{{ packages_remove }}"
+    state: absent
+    force: yes
+  with_items: "{{ packages_remove }}"
+  when: packages_remove is defined
+- name: Install needed applications
+  pacman:
+    name: "{{ packages_install_after  }}"
+    state: present
+  with_items: "{{ packages_install_after }}"
+  when: packages_install_after is defined
+- name: Update packages to the latest version
+  pacman:
+    update_cache: yes
+    upgrade: yes
 - name: Start and enable vnstatd
   systemd:
     name: vnstat

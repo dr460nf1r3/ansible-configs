@@ -94,26 +94,7 @@
     src: "{{ item.conf }}"
   loop:
     - { conf: "nspawn/", path: "/etc/nspawn/" }
-    - { conf: "aations/", path: "/home/nico/.local/share/applications/" }
-- name: Update package cache
-  pacman:
-    update_cache: yes
-- name: Install needed applications
-  pacman:
-    name: "{{ packages_install }}"
-    state: present
-  with_items: "{{ packages_install }}"
-- name: Remove unneeded or conflicting applications
-  pacman:
-    name: "{{ packages_remove }}"
-    state: absent
-    force: yes
-  with_items: "{{ packages_remove }}"
-- name: Install needed applications
-  pacman:
-    name: "{{ packages_install_after  }}"
-    state: present
-  with_items: "{{ packages_install_after }}"
+    - { conf: "applications/", path: "/home/nico/.local/share/applications/" }
 - name: Update packages to the latest version
   pacman:
     update_cache: yes

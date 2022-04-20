@@ -6,8 +6,6 @@
     - import_role:
         name: common
     - import_role:
-        name: nico
-    - import_role:
         name: servers
       when: "'servers' in group_names"
     - import_role:

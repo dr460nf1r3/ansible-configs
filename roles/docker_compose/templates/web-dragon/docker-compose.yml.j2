@@ -1,7 +1,7 @@
 services:
   # Webserver - reverse proxying all the other containers
   nginx:
-    image: patrikjuvonen/docker-nginx-http3:latest
+    image: macbre/nginx-http3:latest
     container_name: nginx
     volumes:
       - './nginx/conf.d:/etc/nginx/conf.d/:ro'
@@ -10,7 +10,6 @@ services:
       - './nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem:ro'
       - './nginx/logs/:/var/log/nginx:rw'
       - './nginx/goaccess:/usr/share/nginx/html/logs:ro'
-      - './nginx/crs-setup.conf:/usr/local/share/coreruleset/crs-setup.conf'
       - './website/public:/usr/share/nginx/html/website:ro'
       - './letsencrypt/etc:/etc/letsencrypt:ro'
     restart: always
