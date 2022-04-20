@@ -73,6 +73,7 @@ services:
     environment:
       GUID: {{ guid }}
       PUID: {{ puid }}
+      REDIS_HOST: {{ redis_host }}
       TZ: {{ tz }}
     restart: unless-stopped
     labels:
@@ -90,6 +91,15 @@ services:
       MYSQL_PASSWORD: {{ nc_mysql_password }}
       MYSQL_ROOT_PASSWORD: {{ nc_mysql_root_password }}
       MYSQL_USER: {{ nc_mysql_user }}
+    labels:
+      - "diun.enable=true"
+
+  nextcloud_redis:
+    image: redis:latest
+    container_name: nextcloud_redis
+    environment:
+      ALLOW_EMPTY_PASSWORD: {{ allow_empty_password }}
+    restart: always
     labels:
       - "diun.enable=true"
 
@@ -113,18 +123,16 @@ services:
     container_name: nitter
     restart: always
     depends_on:
-      - redis
+      - nitter_redis
     volumes:
       - ./nitter.conf:/src/nitter.conf
     labels:
       - "diun.enable=true"
 
-  redis:
+  nitter_redis:
     image: redis:6-alpine
-    container_name: redis
+    container_name: nitter_redis
     restart: always
-    volumes:
-      - ./redis:/var/lib/redis
     labels:
       - "diun.enable=true"
 

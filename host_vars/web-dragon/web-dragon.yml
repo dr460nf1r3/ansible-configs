@@ -20,9 +20,11 @@ packages_install:
   - tmux
   - git
 
-# General
+# Nextcloud & Syncthing
+allow_empty_password: yes
 guid: 1000
 puid: 1000
+redis_host: nextcloud_redis
 tz: Europe/Berlin
 
 # Searxng
