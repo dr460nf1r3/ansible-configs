@@ -1,0 +1,60 @@
+---
+actual_hostname: web-dragon
+ansible_host: 89.58.13.188
+ansible_port: 666
+dl_git: true
+docker_compose: true
+docker_compose_dir: /var/cache/web
+goaccess: true
+letsencrypt_data: /var/cache/web/letsencrypt
+letsencrypt_domain: "dr460nf1r3.org,*.dr460nf1r3.org"
+
+packages_install:
+  - logrotate
+  - mlocate
+  - pacman-contrib
+  - rsync
+  - smartmontools
+  - vnstat
+  - fish
+  - tmux
+  - git
+
+# General
+guid: 1000
+puid: 1000
+tz: Europe/Berlin
+
+# Searxng
+searxng_hostname: "Dragons SearxNG"
+searxng_command: -f
+base_url: https://${searxng_hostname:-localhost}/
+morty_url: https://${searxng_hostname:-localhost}/morty/
+bind_address: 0.0.0.0:8080
+letsencrypt_email: searx@dr460nf1r3.org
+morty_address: 0.0.0.0:3000
+
+# Whoogle
+whoogle_autocomplete: 1
+whoogle_config_alts: 1
+whoogle_config_language: lang_en
+whoogle_config_new_tab: 1
+whoogle_config_search_language: lang_en
+whoogle_config_theme: dark
+whoogle_config_url: https://search.dr460nf1r3.org
+whoogle_config_view_image: 1
+whoogle_results_per_page: 15
+
+# Diun
+diun_providers_docker: true
+diun_watch_schedule: "@hourly"
+diun_watch_workers: 20
+log_json: false
+log_level: info
+
+# libreddit
+libreddit_default_autoplay_videos: on
+libreddit_default_front_page: popular
+libreddit_default_show_nsfw: on
+libreddit_default_theme: dracula
+libreddit_default_use_hls: on

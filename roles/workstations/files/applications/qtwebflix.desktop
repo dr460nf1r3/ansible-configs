@@ -1,0 +1,15 @@
+[Desktop Entry]
+Categories=Network;AudioVideo;Player;
+Comment=Standalone player for several streaming platforms
+Exec=/usr/bin/qtwebflix --disable-seccomp-filter-sandbox
+GenericName=Standalone player for several streaming platforms
+Icon=eu.tiliado.NuvolaAppYoutube
+Name=QtWebFlix
+NoDisplay=false
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

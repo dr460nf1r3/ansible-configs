@@ -1,0 +1,41 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: true
+  tasks:
+    - name: Update Arch Linux
+      pacman:
+        update_cache: yes
+        upgrade: yes
+      when:
+        - ansible_facts['distribution'] == "Archlinux"
+    - name: Update APT packages
+      apt:
+        upgrade: dist
+        update_cache: yes
+        autoclean: yes
+      when:
+        - ansible_facts['distribution'] == "Ubuntu"
+    - name: Update docker-compose stack
+      shell: docker-compose pull --ignore-pull-failures && docker-compose build --no-cache --pull && docker-compose up -d --force-recreate
+      args:
+        chdir: /var/cache/{{ 'chaotic-mirror' if 'mirrors' in group_names else 'garuda-' + (inventory_hostname | lower) }}
+      when: docker_compose | default(false) == true
+    - name: Prune unused Docker resources
+      shell: echo y | docker system prune
+      when: docker_compose | default(false) == true
+    - import_role:
+        name: update_repos
+    - name: Refresh Letsencrypt certificates
+      docker_container:
+        image: certbot/dns-cloudflare:latest
+        name: letsencrypt
+        auto_remove: true
+        recreate: yes
+        container_default_behavior: no_defaults
+        volumes:
+          - "{{ letsencrypt_data }}/etc:/etc/letsencrypt"
+          - "{{ letsencrypt_data }}/var:/var/lib/letsencrypt"
+          - "/root/.cloudflare:/root/.cloudflare"
+        command: 'certonly --preferred-challenges dns-01 --non-interactive --agree-tos -m "team@garudalinux.org" --dns-cloudflare --dns-cloudflare-credentials /root/.cloudflare -d "{{ letsencrypt_domain }}" --cert-name "{{ certname | default(letsencrypt_domain) }}"'
+      when: letsencrypt_domain is defined

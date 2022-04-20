@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: no
+  become: true
+  tasks:
+    - import_role:
+        name: common
+    - import_role:
+        name: nico
+    - import_role:
+        name: servers
+      when: "'servers' in group_names"
+    - import_role:
+        name: workstations
+      when: "'workstations' in group_names"
+    - import_role:
+        name: docker_compose
+      when: docker_compose | default(false) == true
+    - import_role:
+        name: letsencrypt
+      when: letsencrypt_domain is defined

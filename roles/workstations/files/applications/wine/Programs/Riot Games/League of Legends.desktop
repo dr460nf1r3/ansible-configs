@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=League of Legends
+Exec=env WINEPREFIX="/home/nico/Games/League" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Riot\\ Games\\\\League\\ of\\ Legends.lnk
+Type=Application
+StartupNotify=true
+Path=/home/nico/Games/League/dosdevices/c:/Riot Games/Riot Client
+StartupWMClass=riotclientservices.exe

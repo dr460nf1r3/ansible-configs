@@ -1,0 +1,17 @@
+[Desktop Entry]
+Categories=System;FileTools
+Comment=Multi functional app to clean OS which allow to find duplicates, empty folders, similar files etc.
+Exec=czkawka_gui
+Icon=gcleaner
+Keywords=Hiccup;duplicate;same;similar;cleaner
+Name=Czkawka
+NoDisplay=false
+Path=
+StartupNotify=true
+StartupWMClass=czkawka_gui
+Terminal=false
+TerminalOptions=
+TryExec=czkawka_gui
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

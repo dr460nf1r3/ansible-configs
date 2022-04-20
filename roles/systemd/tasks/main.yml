@@ -1,0 +1,36 @@
+- name: Install Goaccess systemd units
+  template:
+    dest: /etc/systemd/system/{{ item }}
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ item }}.j2"
+  when: goaccess | default(false) == true
+  loop:
+    - goaccess.service
+    - goaccess.timer
+  notify: systemd daemon-reload
+- name: Enable Goaccess timer
+  systemd:
+    name: goaccess.timer
+    state: started
+    enabled: yes
+  when: goaccess | default(false) == true
+- name: Install git pull timer systemd units
+  template:
+    dest: /etc/systemd/system/{{ item }}
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ item }}.j2"
+  when: dl_git | default(false) == true
+  loop:
+    - dl-git.service
+    - dl-git.timer
+  notify: systemd daemon-reload
+- name: Enable dl-git timer
+  systemd:
+    name: dl-git.timer
+    state: started
+    enabled: yes
+  when: dl_git | default(false) == true

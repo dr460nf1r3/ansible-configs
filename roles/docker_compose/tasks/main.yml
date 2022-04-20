@@ -1,0 +1,27 @@
+- name: Install Docker & Compose
+  pacman:
+    name:
+      - docker
+      - docker-compose
+    state: present
+- name: Enable and start Docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+- name: Install docker-compose files
+  template:
+    dest: "{{ docker_compose_dir }}/docker-compose.yml"
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ inventory_hostname }}/docker-compose.yml.j2"
+- name: Copy static configurations to target directory
+  copy:
+    src: "{{ inventory_hostname }}"
+    dest: "{{ docker_compose_dir }}"
+    follow: yes
+- name: Run docker-compose up -d
+  shell: docker-compose up -d --remove-orphans
+  args:
+    chdir: "{{ docker_compose_dir }}"

@@ -1,0 +1,18 @@
+[Desktop Entry]
+Categories=Network;InstantMessaging;Qt;
+Comment=Desktop client for Matrix
+Exec=nheko %u
+Icon=nheko
+MimeType=x-scheme-handler/matrix;
+Name=Nheko
+NoDisplay=false
+Path=
+StartupNotify=true
+StartupWMClass=nheko
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
+X-GNOME-UsesNotifications=true
+X-KDE-SubstituteUID=false
+X-KDE-Username=

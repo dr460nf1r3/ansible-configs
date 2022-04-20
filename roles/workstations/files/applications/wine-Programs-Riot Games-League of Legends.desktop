@@ -1,0 +1,14 @@
+[Desktop Entry]
+Comment=
+Exec=env WINEPREFIX="/home/nico/Games/League" wine C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start\\ Menu\\\\Programs\\\\Riot\\ Games\\\\League\\ of\\ Legends.lnk
+Icon=lutris_league-of-legends
+Name=League of Legends
+NoDisplay=false
+Path=/home/nico/Games/League/dosdevices/c:/Riot Games/Riot Client
+StartupNotify=true
+StartupWMClass=riotclientservices.exe
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

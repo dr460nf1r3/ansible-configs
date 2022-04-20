@@ -1,0 +1,15 @@
+[Desktop Entry]
+Categories=GNOME;GTK;System;Garuda-Setup;
+Comment=Change system settings
+Encoding=UTF-8
+Exec=garuda-assistant
+Icon=stacer
+Name=Garuda Assistant
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,117 @@
+- name: Install pacman config
+  template:
+    dest: /etc/pacman.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: pacman.conf.j2
+- name: Update package cache
+  pacman:
+    update_cache: yes
+- name: Install needed applications
+  pacman:
+    name: "{{ packages_install }}"
+    state: present
+  with_items: "{{ packages_install }}"
+- name: Remove unneeded or conflicting applications
+  pacman:
+    name: "{{ packages_remove }}"
+    state: absent
+    force: yes
+  with_items: "{{ packages_remove }}"
+- name: Configure pacman mirror
+  template:
+    dest: /etc/pacman.d/mirrorlist
+    group: root
+    mode: 0644
+    owner: root
+    src: mirrorlist.j2
+- name: Create drop-in directories for systemd configuration
+  file:
+    group: root
+    mode: 0755
+    owner: root
+    path: /etc/systemd/{{ item }}.d
+    state: directory
+  loop:
+    - system.conf
+    - journald.conf
+- name: Install journald.conf overrides
+  template:
+    dest: /etc/systemd/journald.conf.d/override.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: journald.conf.j2
+  notify:
+    - restart journald
+- name: Install system.conf overrides
+  template:
+    dest: /etc/systemd/system.conf.d/override.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: system.conf.j2
+  notify:
+    - systemd daemon-reload
+- name: Install zram-generator config for zram
+  template:
+    src: zram-generator.conf.j2
+    dest: /etc/systemd/zram-generator.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart systemd-zram-setup@zram0
+- name: Disable zswap to prevent conflict with zram
+  copy:
+    content: "w- /sys/module/zswap/parameters/enabled - - - - N"
+    dest: /etc/tmpfiles.d/zram.conf
+    group: root
+    mode: 0644
+    owner: root
+  register: zramtmpfiles
+- name: Use tmpfiles.d/zram.conf
+  command: systemd-tmpfiles --create
+  when: zramtmpfiles.changed
+- name: Create drop-in directories for oomd
+  file:
+    group: root
+    mode: 0755
+    owner: root
+    path: /etc/systemd/system/{{ item }}.d
+    state: directory
+  with_items:
+    - "-.slice"
+    - "user@.service"
+- name: Install drop-in snippets for oomd
+  copy:
+    dest: /etc/systemd/system/{{ item }}.d/override.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: oomd-override_{{ item }}.conf
+  with_items:
+    - "-.slice"
+    - "user@.service"
+  notify:
+    - systemd daemon-reload
+- name: Enable systemd-oomd
+  systemd:
+    name: systemd-oomd
+    state: started
+    enabled: yes
+- name: Create directory for config.fish
+  file:
+    group: nico
+    mode: 0755
+    owner: nico
+    path: /home/nico/.config/fish/
+    state: directory
+- name: Install fish configuration
+  copy:
+    dest: /home/nico/.config/fish/
+    group: nico
+    mode: 0644
+    owner: nico
+    src: config.fish

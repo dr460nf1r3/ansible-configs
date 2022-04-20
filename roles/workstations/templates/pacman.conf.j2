@@ -1,0 +1,62 @@
+[options]
+#RootDir     = /
+#DBPath      = /var/lib/pacman/
+CacheDir = /var/cache/pacman/pkg/
+#LogFile     = /var/log/pacman.log
+#GPGDir      = /etc/pacman.d/gnupg/
+#HookDir     = /etc/pacman.d/hooks/
+HoldPkg      = pacman glibc garuda-system
+#XferCommand = /usr/bin/curl -L -C - -f -o %o %u
+#XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
+#CleanMethod = KeepInstalled
+Architecture = x86_64 x86_64_v3
+
+#IgnorePkg   =
+#IgnoreGroup =
+#NoUpgrade   =
+#NoExtract   =
+
+UseSyslog
+Color
+CheckSpace
+ILoveCandy
+ParallelDownloads = 5
+
+SigLevel          = Required DatabaseOptional
+LocalFileSigLevel = Optional
+
+{% if cachyos_v3 | default(false) == true %}
+[cachyos-desktop-v3]
+Include = /etc/pacman.d/cachyos-v3-mirrorlist
+
+[cachyos-v3]
+Include = /etc/pacman.d/cachyos-v3-mirrorlist
+{% endif %}
+{% if testing | default(false) == true %}
+[testing]
+Include = /etc/pacman.d/mirrorlist
+{% endif %}
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+{% if testing | default(false) == true %}
+[community-testing]
+Include = /etc/pacman.d/mirrorlist
+{% endif %}
+[community]
+Include = /etc/pacman.d/mirrorlist
+
+{% if testing | default(false) == true %}
+[multilib-testing]
+Include = /etc/pacman.d/mirrorlist
+{% endif %}
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist
+

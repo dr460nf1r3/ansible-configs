@@ -1,0 +1,10 @@
+[Unit]
+Description=Run dl-git.sh hourly and on boot
+
+[Timer]
+OnBootSec=15min
+OnCalendar=daily
+Unit=dl-git.service
+
+[Install]
+WantedBy=timers.target

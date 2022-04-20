@@ -1,0 +1,32 @@
+- name: Check if Letsencrypt is set up
+  stat:
+    path: "{{ letsencrypt_data }}/etc/renewal/{{ certname | default(letsencrypt_domain) }}.conf"
+  register: stat_result
+  when: letsencrypt_domain is defined
+- name: Install needed dependency (python-docker)
+  pacman:
+    name: python-docker
+    state: present
+  when: letsencrypt_domain is defined
+- name: Install Cloudflare DNS token
+  copy:
+    decrypt: yes
+    dest: /root/.cloudflare
+    group: root
+    mode: 0644
+    owner: root
+    src: .cloudflare
+  when: letsencrypt_domain is defined
+- name: Order a new Letsencrypt certificate
+  docker_container:
+    image: certbot/dns-cloudflare:latest
+    name: letsencrypt
+    auto_remove: true
+    recreate: yes
+    container_default_behavior: no_defaults
+    volumes:
+      - "{{ letsencrypt_data }}/etc:/etc/letsencrypt"
+      - "{{ letsencrypt_data }}/var:/var/lib/letsencrypt"
+      - "/root/.cloudflare:/root/.cloudflare"
+    command: 'certonly --preferred-challenges dns-01 --non-interactive --agree-tos -m "team@garudalinux.org" --dns-cloudflare --dns-cloudflare-credentials /root/.cloudflare -d "{{ letsencrypt_domain }}" --cert-name "{{ certname | default(letsencrypt_domain) }}"'
+  when: letsencrypt_domain is defined and not stat_result.stat.exists

@@ -1,0 +1,40 @@
+[options]
+#RootDir     = /
+#DBPath      = /var/lib/pacman/
+CacheDir     = /var/cache/pacman/pkg/
+#LogFile     = /var/log/pacman.log
+#GPGDir      = /etc/pacman.d/gnupg/
+#HookDir     = /etc/pacman.d/hooks/
+HoldPkg      = pacman glibc garuda-system
+#XferCommand = /usr/bin/curl -L -C - -f -o %o %u
+#XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
+#CleanMethod = KeepInstalled
+Architecture = auto
+
+#NoUpgrade   =
+#NoExtract   =
+
+# Misc options
+#UseSyslog
+Color
+NoProgressBar
+CheckSpace
+#VerbosePkgLists
+#ILoveCandy
+ParallelDownloads = 10
+
+[core]
+Include = /etc/pacman.d/mirrorlist
+SigLevel = PackageRequired
+
+[extra]
+Include = /etc/pacman.d/mirrorlist
+SigLevel = PackageRequired
+
+[community]
+Include = /etc/pacman.d/mirrorlist
+SigLevel = PackageRequired
+
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist
+SigLevel = PackageRequired

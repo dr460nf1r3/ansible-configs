@@ -1,0 +1,15 @@
+[Desktop Entry]
+Categories=GTK;System;
+Comment=Monitoring software for AMD Zen-based CPUs
+Exec=pkexec /usr/bin/zenmonitor
+Icon=aptik-battery-monitor
+Keywords=CPU;AMD;zen;system;core;speed;clock;temperature;voltage;
+Name=Zenmonitor (root)
+NoDisplay=false
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

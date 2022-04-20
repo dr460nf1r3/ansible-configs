@@ -1,0 +1,9 @@
+[all:vars]
+ansible_connection = ssh
+ansible_user = nico
+
+[workstations]
+slim-7
+
+[servers]
+web-dragon

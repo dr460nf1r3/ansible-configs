@@ -1,0 +1,105 @@
+---
+actual_hostname: slim-7
+ansible_host: localhost
+cachyos_v3: true
+testing: false
+
+packages_install:
+  - acpi_call-dkms
+  - ananicy-cpp-git
+  - ananicy-rules-git
+  - android-tools
+  - ansible
+  - breeze-grub
+  - btop-git
+  - duperemove
+  - electronmail-bin
+  - fastfetch-git
+  - gimp-git
+  - gitkraken
+  - hugo
+  - hunspell-de
+  - hunspell-en_gb
+  - hyphen-de
+  - hyphen-en
+  - ipman
+  - jdk8-openjdk
+  - kdenlive-git
+  - kotatogram-dev-git
+  - krdc
+  - krfb
+  - libinput-gestures
+  - libreoffice-fresh
+  - libreoffice-fresh-de
+  - libreoffice-fresh-en-gb
+  - lutris
+  - movit
+  - nextcloud-client-git
+  - proton-ge-custom
+  - ripgrep-git
+  - speedcrunch
+  - spicetify-cli-git
+  - spicetify-themes-git
+  - spotify
+  - spotify-adblock-git
+  - steam
+  - teams
+  - thunderbird-appmenu
+  - visual-studio-code-insiders-bin
+  - whoogle-git
+  - wine-meta
+  - zenmonitor-git
+packages_remove:
+  - alpm_octopi_utils
+  - autorandr
+  - candy-icons-git
+  - exa
+  - fish-git
+  - fwupd
+  - garuda-boot-options
+  - garuda-gamer
+  - garuda-network-assistant
+  - garuda-video-linux-config
+  - gnome-firmware
+  - input-devices-support
+  - ipw2100-fw
+  - ipw2200-fw
+  - jamesdsp
+  - linux-zen
+  - linux-zen-headers
+  - lockdown-ms
+  - memavaild
+  - mkinitcpio-nfs-utils
+  - mkinitcpio-openswap
+  - neofetch-git
+  - networkmanager-support
+  - noto-fonts-cjk
+  - octopi
+  - pipewire-media-session
+  - plasma-thunderbolt
+  - plymouth-git
+  - plymouth-theme-dr460nized
+  - prelockd
+  - sddm
+  - sddm-kcm
+  - starship
+  - systemd-guest-user
+  - ttf-liberation
+  - ttf-opensans
+  - zram-generator
+packages_install_after:
+  - exa-git
+  - fish-git
+  - wireplumber-git
+  - jamesdsp-git
+  - lib32-mesa-tkg-git
+  - linux-tkg-cfs-generic_v3
+  - linux-tkg-cfs-generic_v3-headers
+  - linux-tkg-cfs-lto_v3
+  - linux-tkg-cfs-lto_v3-headers
+  - memavaild-git
+  - mesa-tkg-git
+  - octopi-git
+  - starship-git
+  - xf86-video-amdgpu
+  - zram-generator-git

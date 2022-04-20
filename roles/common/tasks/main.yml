@@ -1,0 +1,100 @@
+- name: Check if Chaotic-AUR is installed already
+  stat:
+    path: /etc/pacman.d/chaotic-mirrorlist
+  register: caur_exists
+- name: Retrieve Chaotic-AUR master key and sign it
+  shell: pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com && pacman-key --lsign-key FBA220DFC880C036
+  when: caur_exists.stat.exists | default(true) == false
+- name: Install Chaotic-AUR keyring and mirrorlist
+  pacman:
+    name:
+      - "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
+      - "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
+    state: present
+- name: Update package cache
+  pacman:
+    update_cache: yes
+- name: Install core packages
+  pacman:
+    name:
+      - logrotate
+      - mlocate
+      - pacman-contrib
+      - rsync
+      - smartmontools
+      - vnstat
+    state: present
+- name: Start and enable vnstatd
+  systemd:
+    name: vnstat
+    state: started
+    enabled: yes
+- name: Start and enable systemd-timesyncd
+  systemd:
+    name: systemd-timesyncd
+    state: started
+    enabled: yes
+- name: Enable mlocate timer
+  systemd:
+    name: updatedb.timer
+    state: started
+    enabled: yes
+- name: Configure smartd to do periodic health checks
+  copy:
+    src: smartd.conf
+    dest: /etc/smartd.conf
+    group: root
+    mode: 0644
+    owner: root
+- name: Generate locales
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - en_US.UTF-8
+- name: Configure locales
+  template:
+    dest: /etc/locale.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: locale.conf.j2
+- name: Configure logrotate
+  template:
+    dest: /etc/logrotate.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: logrotate.conf.j2
+- name: Enable logrotate timer
+  systemd:
+    name: logrotate.timer
+    state: started
+    enabled: yes
+- name: Install custom paccache.service
+  copy:
+    dest: /etc/systemd/system/paccache.service
+    group: root
+    mode: 0644
+    owner: root
+    src: paccache.service
+- name: Enable paccache timer
+  systemd:
+    name: paccache.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes
+- name: Install tmux config
+  copy:
+    dest: /home/nico/.tmux.conf
+    group: nico
+    mode: 0644
+    owner: nico
+    src: .tmux.conf
+- name: Install bash_profile config
+  copy:
+    dest: /home/nico/.bash_profile
+    group: nico
+    mode: 0644
+    owner: nico
+    src: .bash_profile

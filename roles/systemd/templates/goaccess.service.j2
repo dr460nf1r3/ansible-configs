@@ -1,0 +1,9 @@
+[Unit]
+Description=Parse Nginx logsfiles with Goaccess
+
+[Service]
+User=root
+ExecStart=goaccess /var/cache/{{ inventory_hostname }}/nginx/logs/access.log -o/var/cache/{{ inventory_hostname | lower }}//nginx/goaccess/report.html --log-format=COMBINED
+
+[Install]
+WantedBy=multi-user.target

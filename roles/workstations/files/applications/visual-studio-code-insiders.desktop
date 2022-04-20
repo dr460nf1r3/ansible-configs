@@ -1,0 +1,24 @@
+[Desktop Action new-empty-window]
+Exec=/opt/visual-studio-code-insiders/code-insiders --no-sandbox --new-window %F
+Icon=visual-studio-code-insiders
+Name=New Empty Window
+
+[Desktop Entry]
+Actions=new-empty-window;
+Categories=Utility;TextEditor;Development;IDE;
+Comment=Code Editing. Refined.
+Exec=/opt/visual-studio-code-insiders/code-insiders --no-sandbox --unity-launch %F
+GenericName=Text Editor
+Icon=visual-studio-code
+Keywords=vscode;
+MimeType=text/plain;inode/directory;
+Name=Visual Studio Code Insiders
+NoDisplay=false
+Path=
+StartupNotify=false
+StartupWMClass=code - insiders
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

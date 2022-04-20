@@ -1,0 +1,26 @@
+[Desktop Action QuitTeams]
+Exec=/usr/bin/teams --quit
+Name[en_GB]=Quit Teams
+Name=Quit Teams
+OnlyShowIn=Unity;
+
+[Desktop Entry]
+Actions=QuitTeams;
+Categories=Network;
+Comment=Microsoft Teams for Linux is your chat-centered workspace in Office 365.
+Exec=teams %U
+Icon=teams
+MimeType=x-scheme-handler/msteams;
+Name=Microsoft Teams
+NoDisplay=false
+Path=
+StartupNotify=true
+StartupWMClass=Microsoft Teams - Preview
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
+X-GNOME-UsesNotifications=true;
+X-KDE-Protocols=teams
+X-KDE-SubstituteUID=false
+X-KDE-Username=

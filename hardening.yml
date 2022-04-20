@@ -1,0 +1,15 @@
+---
+- hosts:
+    - chaotic_aur
+    - garuda
+    - misc
+  become: yes
+  gather_facts: yes
+  collections:
+    - devsec.hardening
+  roles:
+    - devsec.hardening.os_hardening
+    - devsec.hardening.ssh_hardening
+  vars:
+    sysctl_overwrite:
+      net.ipv4.ip_forward: 1

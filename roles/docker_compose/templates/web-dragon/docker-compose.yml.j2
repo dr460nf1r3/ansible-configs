@@ -1,0 +1,261 @@
+services:
+  # Webserver - reverse proxying all the other containers
+  nginx:
+    image: patrikjuvonen/docker-nginx-http3:latest
+    container_name: nginx
+    volumes:
+      - './nginx/conf.d:/etc/nginx/conf.d/:ro'
+      - './nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - './nginx/configs:/etc/nginx/configs:ro'
+      - './nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem:ro'
+      - './nginx/logs/:/var/log/nginx:rw'
+      - './nginx/goaccess:/usr/share/nginx/html/logs:ro'
+      - './nginx/crs-setup.conf:/usr/local/share/coreruleset/crs-setup.conf'
+      - './website/public:/usr/share/nginx/html/website:ro'
+      - './letsencrypt/etc:/etc/letsencrypt:ro'
+    restart: always
+    ports:
+      - 80:80
+      - 443:443/tcp
+      - 443:443/udp
+    labels:
+      - "diun.enable=true"
+
+  # Automatic container updates
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    command: serve
+    volumes:
+      - "./diun:/data"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    environment:
+      DIUN_NOTIF_TELEGRAM_CHATIDS: {{ diun_notif_telegram_chatids }}
+      DIUN_NOTIF_TELEGRAM_TOKEN: {{ diun_notif_telegram_token }}
+      DIUN_PROVIDERS_DOCKER: {{ diun_providers_docker }}
+      DIUN_WATCH_SCHEDULE: "{{ diun_watch_schedule }}"
+      DIUN_WATCH_WORKERS: {{ diun_watch_workers }}
+      LOG_JSON: {{ log_json }}
+      LOG_LEVEL: {{ log_level }}
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  # Syncthing
+  syncthing:
+    image: linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: dragons-epyc
+    volumes:
+      - ./syncthing:/config
+      - /srv/http/repos/chaotic-aur:/chaotic
+      - /home/nico/media/music:/music
+      - /home/nico/media/videos:/videos
+      - /home/nico/media/pictures:/pictures
+    ports:
+      - 22000:22000
+      - 21027:21027
+      - 21027:21027/udp
+    environment:
+      GUID: {{ guid }}
+      PUID: {{ puid }}
+      TZ: {{ tz }}
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  # Nextcloud
+  nextcloud_app:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    volumes:
+      - ./nextcloud/config:/config
+      - ./nextcloud/data:/data
+    environment:
+      GUID: {{ guid }}
+      PUID: {{ puid }}
+      TZ: {{ tz }}
+    restart: unless-stopped
+    labels:
+      - "diun.enable=true"
+
+  nextcloud_db:
+    image: mariadb:latest
+    container_name: nextcloud_db
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    restart: always
+    volumes:
+      - ./nextcloud/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: {{ nc_mysql_database }}
+      MYSQL_PASSWORD: {{ nc_mysql_password }}
+      MYSQL_ROOT_PASSWORD: {{ nc_mysql_root_password }}
+      MYSQL_USER: {{ nc_mysql_user }}
+    labels:
+      - "diun.enable=true"
+
+  # Reddit frontend
+  libreddit:
+    image: spikecodes/libreddit:latest
+    container_name: libreddit
+    environment:
+      LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: {{ libreddit_default_autoplay_videos }}
+      LIBREDDIT_DEFAULT_FRONT_PAGE: {{ libreddit_default_front_page }}
+      LIBREDDIT_DEFAULT_SHOW_NSFW: {{ libreddit_default_show_nsfw }}
+      LIBREDDIT_DEFAULT_THEME: {{ libreddit_default_theme }}
+      LIBREDDIT_DEFAULT_USE_HLS: {{ libreddit_default_use_hls }}
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  # Twitter frontend
+  nitter:
+    image: zedeus/nitter:latest
+    container_name: nitter
+    restart: always
+    depends_on:
+      - redis
+    volumes:
+      - ./nitter.conf:/src/nitter.conf
+    labels:
+      - "diun.enable=true"
+
+  redis:
+    image: redis:6-alpine
+    container_name: redis
+    restart: always
+    volumes:
+      - ./redis:/var/lib/redis
+    labels:
+      - "diun.enable=true"
+
+  # Wordpress
+  wordpress_sgs_app:
+    depends_on:
+      - wordpress_sgs_db
+    image: wordpress:latest
+    container_name: wordpress_sgs_app
+    volumes:
+      - ./wordpress_sgs/app:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: {{ wordpress_db_host }}
+      WORDPRESS_DB_USER: {{ wordpress_db_user }}
+      WORDPRESS_DB_PASSWORD: {{ wordpress_db_password }}
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  wordpress_sgs_db:
+    image: mariadb:latest
+    container_name: wordpress_sgs_db
+    volumes:
+      - ./wordpress_sgs/db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: {{ wp_mysql_root_password }}
+      MYSQL_DATABASE: {{ wp_mysql_database }}
+      MYSQL_USER: {{ wp_mysql_user }}
+      MYSQL_PASSWORD: {{ wp_mysql_password }}
+    networks:
+      - default
+
+  # Whoogle search engine
+  whoogle:
+    image: benbusby/whoogle-search:latest
+    container_name: whoogle
+    pids_limit: 50
+    mem_limit: 256mb
+    memswap_limit: 256mb
+    user: whoogle
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /var/lib/tor/:size=10M,uid=927,gid=927,mode=1700
+      - /run/tor/:size=1M,uid=927,gid=927,mode=1700
+    volumes:
+      - "./whoogle:/config"
+    environment:
+      WHOOGLE_AUTOCOMPLETE: {{ whoogle_autocomplete }}
+      WHOOGLE_CONFIG_ALTS: {{ whoogle_config_alts }}
+      WHOOGLE_CONFIG_LANGUAGE: {{ whoogle_config_language }}
+      WHOOGLE_CONFIG_NEW_TAB: {{ whoogle_config_new_tab }}
+      WHOOGLE_CONFIG_SEARCH_LANGUAGE: {{ whoogle_config_search_language }}
+      WHOOGLE_CONFIG_THEME: {{ whoogle_config_theme }}
+      WHOOGLE_CONFIG_URL: {{ whoogle_config_url }}
+      WHOOGLE_CONFIG_VIEW_IMAGE: {{ whoogle_config_view_image }}
+      WHOOGLE_RESULTS_PER_PAGE: {{ whoogle_results_per_page }}
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  # Searxng search engine
+  searx:
+    image: searxng/searxng:latest
+    container_name: searx
+    command: {{ searxng_command }}
+    volumes:
+      - "./searxng:/etc/searxng:rw"
+    environment:
+      SEARXNG_HOSTNAME: {{ searxng_hostname }}
+      BIND_ADDRESS: {{ bind_address }}
+      BASE_URL: {{ base_url }}
+      MORTY_URL: {{ morty_url }}
+      MORTY_KEY: {{ morty_key }}
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  morty:
+    image: dalf/morty:latest
+    container_name: morty
+    ports:
+      - "127.0.0.1:3000:3000"
+    command: -timeout 6 -ipv6
+    environment:
+      MORTY_KEY: {{ morty_key }}
+      MORTY_ADDRESS: {{ morty_address }}
+    logging:
+      driver: none
+    read_only: true
+    cap_drop:
+      - ALL
+    restart: always
+    labels:
+      - "diun.enable=true"
+    restart: always
+
+  filtron:
+    image: dalf/filtron:latest
+    container_name: filtron
+    ports:
+      - "127.0.0.1:4040:4040"
+      - "127.0.0.1:4041:4041"
+    command: -listen 0.0.0.0:4040 -api 0.0.0.0:4041 -target searxng:8080
+    read_only: true
+    cap_drop:
+      - ALL
+    restart: always
+    labels:
+      - "diun.enable=true"
+
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    environment:
+      GUID: {{ guid }}
+      PUID: {{ puid }}
+      TZ: {{ tz }}
+    volumes:
+      - ./heimdall:/config
+    restart: unless-stopped
+    labels:
+      - "diun.enable=true"

@@ -1,0 +1,159 @@
+- name: Check if CachyOS repository is installed already
+  stat:
+    path: /etc/pacman.d/cachyos-v3-mirrorlist
+  register: cachyos_v3_exists
+  when: cachyos_v3 | default(false) == true
+- name: Retrieve CachyOS master key and sign it
+  shell: pacman-key --recv-keys 882DCFE48E2051D48E2562ABF3B607488DB35A47 && pacman-key --lsign-key 882DCFE48E2051D48E2562ABF3B607488DB35A47
+  when: cachyos_v3 | default(false) == true and cachyos_v3_exists.stat.exists | default(true) == false
+- name: Install CachyOS mirrorlist
+  pacman:
+    name: https://mirror.cachyos.org/repo/x86_64/cachyos/cachyos-v3-mirrorlist-8-1-any.pkg.tar.zst
+    state: present
+  when: cachyos_v3 | default(false) == true and cachyos_v3_exists.stat.exists | default(true) == false
+- name: Uninstall CachyOS mirrorlist
+  pacman:
+    name: cachyos-v3-mirrorlist-8-1-any.pkg.tar.zst
+    state: absent
+  when: cachyos_v3 == false and cachyos_v3_exists.stat.exists == true
+- name: Install pacman config
+  template:
+    dest: /etc/pacman.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: pacman.conf.j2
+- name: Disable BTRFS quotas & chattr + C for VM / Container directories
+  shell: btrfs quota disable / && chattr +C /var/lib/machines && chattr +C /var/lib/libvirt
+- name: Update package cache
+  pacman:
+    update_cache: yes
+- name: Create drop-in directories for systemd configuration
+  file:
+    group: root
+    mode: 0755
+    owner: root
+    path: /etc/systemd/{{ item }}
+    state: directory
+  loop:
+    - system/getty@tty1.service.d
+    - journald.conf.d
+- name: Install journald.conf overrides
+  template:
+    dest: /etc/{{ item.path }}
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ item.conf }}"
+  notify:
+    - restart journald
+  loop:
+    - {
+        conf: "journald.conf.j2",
+        path: "/systemd/journald.conf.d/override.conf",
+      }
+    - {
+        conf: "getty.conf",
+        path: "/systemd/system/getty@tty1.service.d/override.conf",
+      }
+    - { conf: "makepkg.conf", path: "makepkg.conf" }
+- name: Enable systemd-oomd
+  systemd:
+    name: systemd-oomd
+    state: started
+    enabled: yes
+- name: Install user configurations
+  copy:
+    dest: /home/nico/{{ item.path }}
+    group: nico
+    mode: 0644
+    owner: nico
+    src: "{{ item.conf }}"
+  loop:
+    - { conf: ".gitconfig", path: ".gitconfig" }
+    - { conf: "modprobed.db", path: ".config/modprobed.db" }
+    - { conf: "starship.toml", path: ".config/starship.toml" }
+- name: Copy user directories
+  copy:
+    dest: "{{ item.path }}"
+    follow: yes
+    group: nico
+    mode: 0644
+    owner: nico
+    src: "{{ item.conf }}"
+  loop:
+    - { conf: "autostart/", path: "/home/nico/.config/autostart/" }
+    - { conf: "applications/", path: "/home/nico/.local/share/applications/" }
+- name: Copy system directories
+  copy:
+    dest: "{{ item.path }}"
+    follow: yes
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ item.conf }}"
+  loop:
+    - { conf: "nspawn/", path: "/etc/nspawn/" }
+    - { conf: "aations/", path: "/home/nico/.local/share/applications/" }
+- name: Update package cache
+  pacman:
+    update_cache: yes
+- name: Install needed applications
+  pacman:
+    name: "{{ packages_install }}"
+    state: present
+  with_items: "{{ packages_install }}"
+- name: Remove unneeded or conflicting applications
+  pacman:
+    name: "{{ packages_remove }}"
+    state: absent
+    force: yes
+  with_items: "{{ packages_remove }}"
+- name: Install needed applications
+  pacman:
+    name: "{{ packages_install_after  }}"
+    state: present
+  with_items: "{{ packages_install_after }}"
+- name: Update packages to the latest version
+  pacman:
+    update_cache: yes
+    upgrade: yes
+- name: Disable unused Systemd services
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+  loop:
+    - ModemManager
+    - bluetooth-autoconnect
+    - remote-fs.target
+- name: Mask unwanted Systemd services
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+    masked: yes
+  loop:
+    - lvm2-lvmpolld
+    - lvm2-lvmpolld.socket
+    - lvm2-monitor
+- name: Enable Systemd system services
+  systemd:
+    name: "{{ item }}"
+    state: started
+  loop:
+    - ananicy-cpp
+    - hblock.timer
+    - ufw
+- name: Create directory for config.fish
+  file:
+    group: nico
+    mode: 0755
+    owner: nico
+    path: /home/nico/.config/fish/
+    state: directory
+- name: Install fish configuration
+  copy:
+    dest: /home/nico/.config/fish/
+    group: nico
+    mode: 0644
+    owner: nico
+    src: config.fish
