@@ -91,8 +91,6 @@ services:
       MYSQL_PASSWORD: {{ nc_mysql_password }}
       MYSQL_ROOT_PASSWORD: {{ nc_mysql_root_password }}
       MYSQL_USER: {{ nc_mysql_user }}
-    labels:
-      - "diun.enable=true"
 
   nextcloud_redis:
     image: redis:latest
@@ -138,8 +136,6 @@ services:
 
   # Wordpress
   wordpress_sgs_app:
-    depends_on:
-      - wordpress_sgs_db
     image: wordpress:latest
     container_name: wordpress_sgs_app
     volumes:
@@ -148,6 +144,8 @@ services:
       WORDPRESS_DB_HOST: {{ wordpress_db_host }}
       WORDPRESS_DB_USER: {{ wordpress_db_user }}
       WORDPRESS_DB_PASSWORD: {{ wordpress_db_password }}
+    depends_on:
+      - wordpress_sgs_db
     restart: always
     labels:
       - "diun.enable=true"
@@ -163,8 +161,6 @@ services:
       MYSQL_DATABASE: {{ wp_mysql_database }}
       MYSQL_USER: {{ wp_mysql_user }}
       MYSQL_PASSWORD: {{ wp_mysql_password }}
-    networks:
-      - default
 
   # Whoogle search engine
   whoogle:
@@ -238,7 +234,6 @@ services:
     restart: always
     labels:
       - "diun.enable=true"
-    restart: always
 
   filtron:
     image: dalf/filtron:latest
@@ -251,18 +246,5 @@ services:
     cap_drop:
       - ALL
     restart: always
-    labels:
-      - "diun.enable=true"
-
-  heimdall:
-    image: lscr.io/linuxserver/heimdall:latest
-    container_name: heimdall
-    environment:
-      GUID: {{ guid }}
-      PUID: {{ puid }}
-      TZ: {{ tz }}
-    volumes:
-      - ./heimdall:/config
-    restart: unless-stopped
     labels:
       - "diun.enable=true"
