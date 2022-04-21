@@ -1,7 +1,7 @@
 ---
 actual_hostname: slim-7
 ansible_host: localhost
-cachyos_v3: true
+cachyos_v3: false
 testing: false
 
 packages_install:
