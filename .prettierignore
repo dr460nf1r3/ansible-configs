@@ -1,0 +1,4 @@
+.env*
+library/*
+misc/*
+config.json*

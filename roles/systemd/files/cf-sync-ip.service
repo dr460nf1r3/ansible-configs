@@ -1,0 +1,9 @@
+[Unit]
+Description=Get a recent list of Cloudflare IPs 
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/cf-sync-ip.sh
+
+[Install]
+WantedBy=multi-user.target

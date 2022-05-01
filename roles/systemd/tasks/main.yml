@@ -34,3 +34,34 @@
     state: started
     enabled: yes
   when: dl_git | default(false) == true
+- name: Install Cloudflare IP sync script
+  template:
+    dest: /usr/local/bin/cf-sync-ip.sh
+    group: root
+    mode: 0644
+    owner: root
+    src: cf-sync-ip.sh.j2
+  when: cf_sync_ip | default(false) == true
+- name: Make Cloudflare IP sync script executable
+  file:
+    dest: /usr/local/bin/cf-sync-ip.sh
+    mode: a+x
+  when: cf_sync_ip | default(false) == true
+- name: Install Cloudflare IP syncing systemd units
+  copy:
+    dest: /etc/systemd/system/{{ item }}
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ item }}"
+  when: cf_sync_ip | default(false) == true
+  loop:
+    - cf-sync-ip.service
+    - cf-sync-ip.timer
+  notify: systemd daemon-reload
+- name: Enable Cloudflare IP syncing timer
+  systemd:
+    name: dl-git.timer
+    state: started
+    enabled: yes
+  when: cf_sync_ip | default(false) == true

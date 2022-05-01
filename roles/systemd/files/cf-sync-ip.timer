@@ -1,0 +1,9 @@
+[Unit]
+Description=Get a recent list of Cloudflare IPs 
+
+[Timer]
+OnCalendar=daily
+Persistent=false
+
+[Install]
+WantedBy=timers.target

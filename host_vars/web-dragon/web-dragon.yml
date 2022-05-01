@@ -2,12 +2,14 @@
 actual_hostname: web-dragon
 ansible_host: 89.58.13.188
 ansible_port: 666
+cf_sync_ip: true
 dl_git: true
 docker_compose: true
 docker_compose_dir: /var/cache/web
 goaccess: true
 letsencrypt_data: /var/cache/web/letsencrypt
 letsencrypt_domain: "dr460nf1r3.org,*.dr460nf1r3.org"
+nginx_config_dir: "{{ docker_compose_dir }}/nginx/configs"
 
 packages_install:
   - logrotate
@@ -38,7 +40,7 @@ morty_address: 0.0.0.0:3000
 
 # Whoogle
 whoogle_autocomplete: 1
-whoogle_config_alts: 1
+whoogle_config_alts: 0
 whoogle_config_language: lang_en
 whoogle_config_new_tab: 1
 whoogle_config_search_language: lang_en
