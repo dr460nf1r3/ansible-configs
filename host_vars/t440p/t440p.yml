@@ -1,0 +1,68 @@
+---
+actual_hostname: t440p
+ansible_host: 192.168.8.100
+ansible_port: 22
+#docker_compose: true
+#docker_compose_dir: /var/cache/web
+
+packages_install:
+  - acpi_call-dkms
+  - ananicy-cpp-git
+  - ananicy-rules-git
+  - ansible
+  - cloudflared
+  - duperemove
+  - jdk8-openjdk
+  - krdc
+  - krfb
+  - libinput-gestures
+  - spicetify-themes-git
+  - spotify
+  - spotify-adblock-git
+packages_remove:
+  - autorandr
+  - candy-icons-git
+  - fwupd
+  - garuda-boot-options
+  - garuda-gamer
+  - garuda-network-assistant
+  - garuda-video-linux-config
+  - gnome-firmware
+  - input-devices-support
+  - ipw2100-fw
+  - ipw2200-fw
+  - jamesdsp
+  - linux-zen
+  - linux-zen-headers
+  - lockdown-ms
+  - mkinitcpio-nfs-utils
+  - mkinitcpio-openswap
+  - neofetch-git
+  - networkmanager-support
+  - noto-fonts-cjk
+  - octopi
+  - pipewire-media-session
+  - plasma-thunderbolt
+  - plymouth-git
+  - plymouth-theme-dr460nized
+  - prelockd
+  - sddm
+  - sddm-kcm
+  - starship
+  - systemd-guest-user
+  - ttf-liberation
+  - ttf-opensans
+  - zram-generator
+packages_install_after:
+  - jamesdsp-git
+  - lib32-mesa-tkg-git
+  - linux-tkg-cfs-lto_v3
+  - linux-tkg-cfs-lto_v3-headers
+  - memavaild-git
+  - mesa-tkg-git
+  - octopi-git
+  - plymouth-git
+  - plymouth-theme-dr460nized
+  - starship-git
+  - wireplumber-git
+  - zram-generator-git

@@ -6,4 +6,5 @@ ansible_user = nico
 slim-7
 
 [servers]
+t440p
 web-dragon
