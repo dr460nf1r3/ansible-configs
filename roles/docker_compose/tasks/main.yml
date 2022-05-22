@@ -18,7 +18,7 @@
     src: "{{ inventory_hostname }}/docker-compose.yml.j2"
 - name: Copy static configurations to target directory
   copy:
-    src: "{{ inventory_hostname }}"
+    src: "{{ inventory_hostname }}/"
     dest: "{{ docker_compose_dir }}"
     follow: yes
 - name: Run docker-compose up -d
