@@ -259,3 +259,14 @@ services:
     volumes:
       - "./bibliogram/config.js:/app/config.js"
       - "./bibliogram/db:/app/db"
+
+  # Lingva
+  lingva:
+    container_name: lingva
+    image: thedaviddelta/lingva-translate:latest
+    restart: on-failure:5
+    environment:
+      dark_theme: true
+      default_source_lang: auto
+      default_target_lang: en
+      site_domain: translate.dr460nf1r3.org
