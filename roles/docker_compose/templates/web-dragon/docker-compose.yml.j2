@@ -12,7 +12,7 @@ services:
       - './nginx/goaccess:/usr/share/nginx/html/logs:ro'
       - './website/public:/usr/share/nginx/html/website:ro'
       - './letsencrypt/etc:/etc/letsencrypt:ro'
-    restart: always
+    restart: on-failure:5
     ports:
       - 80:80
       - 443:443/tcp
@@ -36,7 +36,7 @@ services:
       DIUN_WATCH_WORKERS: {{ diun_watch_workers }}
       LOG_JSON: {{ log_json }}
       LOG_LEVEL: {{ log_level }}
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -59,7 +59,7 @@ services:
       GUID: {{ guid }}
       PUID: {{ puid }}
       TZ: {{ tz }}
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -83,7 +83,7 @@ services:
     image: mariadb:latest
     container_name: nextcloud_db
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
-    restart: always
+    restart: on-failure:5
     volumes:
       - ./nextcloud/db:/var/lib/mysql
     environment:
@@ -97,7 +97,7 @@ services:
     container_name: nextcloud_redis
     environment:
       ALLOW_EMPTY_PASSWORD: {{ allow_empty_password }}
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -111,7 +111,7 @@ services:
       LIBREDDIT_DEFAULT_SHOW_NSFW: {{ libreddit_default_show_nsfw }}
       LIBREDDIT_DEFAULT_THEME: {{ libreddit_default_theme }}
       LIBREDDIT_DEFAULT_USE_HLS: {{ libreddit_default_use_hls }}
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -119,7 +119,7 @@ services:
   nitter:
     image: zedeus/nitter:latest
     container_name: nitter
-    restart: always
+    restart: on-failure:5
     depends_on:
       - nitter_redis
     volumes:
@@ -130,7 +130,7 @@ services:
   nitter_redis:
     image: redis:6-alpine
     container_name: nitter_redis
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -146,7 +146,7 @@ services:
       WORDPRESS_DB_PASSWORD: {{ wordpress_db_password }}
     depends_on:
       - wordpress_sgs_db
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -155,7 +155,7 @@ services:
     container_name: wordpress_sgs_db
     volumes:
       - ./wordpress_sgs/db:/var/lib/mysql
-    restart: always
+    restart: on-failure:5
     environment:
       MYSQL_ROOT_PASSWORD: {{ wp_mysql_root_password }}
       MYSQL_DATABASE: {{ wp_mysql_database }}
@@ -189,7 +189,7 @@ services:
       WHOOGLE_CONFIG_URL: {{ whoogle_config_url }}
       WHOOGLE_CONFIG_VIEW_IMAGE: {{ whoogle_config_view_image }}
       WHOOGLE_RESULTS_PER_PAGE: {{ whoogle_results_per_page }}
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -213,7 +213,7 @@ services:
       - SETGID
       - SETUID
       - DAC_OVERRIDE
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -231,7 +231,7 @@ services:
     read_only: true
     cap_drop:
       - ALL
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
 
@@ -245,6 +245,17 @@ services:
     read_only: true
     cap_drop:
       - ALL
-    restart: always
+    restart: on-failure:5
     labels:
       - "diun.enable=true"
+
+  # Bibliogram
+  bibliogram:
+    image: quay.io/pussthecatorg/bibliogram:latest
+    container_name: bibliogram
+    restart: on-failure:5
+    mem_limit: 256mb
+    memswap_limit: 256mb
+    volumes:
+      - "./bibliogram/config.js:/app/config.js"
+      - "./bibliogram/db:/app/db"
