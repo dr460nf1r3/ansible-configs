@@ -1,0 +1,269 @@
+pageInfo:
+  title: Dragons Dashy
+  description: Welcome to the dragons lair! 🐉
+  navLinks:
+    - title: Keybase
+      path: https://keybase.io/dr460nf1r3
+      target: newtab
+    - title: GitHub
+      path: https://github.com/dr460nf1r3
+      target: newtab
+    - title: GitLab
+      path: https://gitlab.com/dr460nf1r3
+      target: newtab
+    - title: Chaotic-AUR
+      path: https://aur.chaotic.cx
+      target: newtab
+    - title: Garuda Linux
+      path: https://garudalinux.org
+      target: newtab
+  footerText: Be the change you wish to see in the world!
+  logo: https://garudalinux.org/images/garuda/home/avatar-nico.webp
+appConfig:
+  auth:
+    users:
+      - user: nico
+        hash: 0C167C2208463015C1B53F16B31AC1793B703CD07998A432EBE6C1705E8F645D
+        type: admin
+    enableGuestAccess: true
+    enableKeycloak: false
+  enableGuestAccess: true
+  theme: colorful
+  language: en
+  layout: auto
+  iconSize: large
+  customColors:
+    dracula:
+      primary: '#98ace9'
+      background: '#44475a'
+      background-darker: '#282a36'
+      font-headings: '"Fira Sans",sans-serif'
+      font-body: '"Fira Sans","Trebuchet MS",sans-serif'
+      font-monospace: '"Fira Sans","Courier New",monospace'
+    colorful:
+      primary: '#e8eae1'
+      background: '#0b1021'
+      background-darker: '#05070e'
+      font-headings: '"Fira Sans",sans-serif'
+      font-body: '"Fira Sans","Trebuchet MS",sans-serif'
+      font-monospace: '"Fira Sans","Courier New",monospace'
+  startingView: default
+  defaultOpeningMethod: newtab
+  statusCheck: true
+  statusCheckInterval: 30
+  backgroundImg: ''
+  faviconApi: allesedv
+  routingMode: history
+  enableMultiTasking: false
+  widgetsAlwaysUseProxy: true
+  webSearch:
+    disableWebSearch: false
+    searchEngine: whoogle
+    openingMethod: newtab
+    searchBangs: {}
+  enableFontAwesome: true
+  enableMaterialDesignIcons: false
+  hideComponents:
+    hideHeading: false
+    hideNav: false
+    hideSearch: false
+    hideSettings: false
+    hideFooter: true
+  showSplashScreen: true
+  preventWriteToDisk: false
+  preventLocalSave: false
+  disableConfiguration: false
+  allowConfigEdit: true
+  enableServiceWorker: true
+  disableContextMenu: false
+  disableUpdateChecks: false
+  disableSmartSort: false
+  enableErrorReporting: false
+sections:
+  - name: Public Services
+    icon: fas fa-server
+    items:
+      - title: Whoogle
+        description: Selfhosted Whoogle instance
+        icon: hl-whooglesearch
+        url: https://search.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 0_1475_whoogle
+      - title: SearxNG
+        description: Selfhosted Searx instance
+        icon: https://docs.searxng.org/_static/searxng-wordmark.svg
+        url: https://searx.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 1_1475_searxng
+      - title: Libreddit
+        description: Selfhosted Reddit frontend
+        icon: hl-libreddit
+        url: https://reddit.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 2_1475_libreddit
+      - title: Nitter
+        description: Selfhosted Twitter frontend
+        icon: hl-nitter
+        url: https://twitter.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 3_1475_nitter
+      - title: Bibliogram
+        description: Selfhosted Instagram frontend
+        icon: hl-instagram
+        url: https://insta.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 4_1475_bibliogram
+      - title: Goaccess Logs
+        description: Displaying Nginx statistics
+        icon: hl-nginx
+        url: https://logs.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 5_1475_goaccesslogs
+      - title: Chaotic-AUR mirror
+        description: Chaotic-AUR repo mirror
+        icon: favicon
+        url: https://mirror.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 6_1475_chaoticaurmirror
+      - title: Lingva
+        description: Selfhosted Lingva instance
+        icon: >-
+          https://upload.wikimedia.org/wikipedia/commons/d/d7/Google_Translate_logo.svg
+        url: https://translate.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 7_1475_lingva
+    displayData:
+      sortBy: alphabetical
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+  - name: Private Services & links
+    icon: fas fa-dragon
+    displayData:
+      sortBy: alphabetical
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: true
+    items:
+      - title: PhotoPrism
+        description: Personal photo album
+        icon: hl-photoprism
+        url: https://album.dr460nf1r3.org
+        target: newtab
+        id: 0_2246_photoprism
+      - title: Web Syncthing
+        description: Syncthing of the web VM
+        icon: hl-syncthing
+        url: https://sync.dr460nf1r3.org
+        target: newtab
+        id: 1_2246_websyncthing
+      - title: Dragon Cloud
+        description: Personal Nextcloud instance
+        icon: hl-nextcloud
+        url: https://cloud.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 2_2246_dragoncloud
+      - title: Proxmox
+        description: Proxmox instance
+        icon: hl-proxmox
+        url: https://pve.dr460nf1r3.org
+        target: newtab
+        statusCheck: true
+        id: 3_2246_proxmox
+      - title: Garuda Forum
+        description: Garuda Linux forum
+        icon: favicon
+        url: https://forum.garudalinux.org
+        target: newtab
+        statusCheck: true
+        id: 4_2246_garudaforum
+      - title: AUR
+        description: Archlinux User Repository
+        icon: >-
+          https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Archlinux-icon-crystal-64.svg/1200px-Archlinux-icon-crystal-64.svg.png
+        url: https://aur.archlinux.org
+        target: newtab
+        statusCheck: true
+        id: 5_2246_aur
+      - title: YouTube
+        description: Consume videos easily
+        icon: favicon
+        url: https://youtube.com
+        target: newtab
+        statusCheck: true
+        id: 6_2246_youtube
+      - title: Netdata
+        description: View local webserver stats
+        icon: hl-netdata
+        url: https://netdata.dr460nf1r3.org
+        target: modal
+        statusCheck: true
+        id: 7_2246_netdata
+  - name: Widgets
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: clock
+        options:
+          timeZone: Europe/Berlin
+          format: de-DE
+          hideDate: false
+        id: 0_727_clock
+      - type: joke
+        options:
+          language: en
+          category: programming
+        id: 1_727_joke
+      - type: public-holidays
+        options:
+          country: DE
+          holidayType: all
+          monthsToShow: 5
+        id: 2_727_publicholidays
+      - type: public-ip
+        options:
+          provider: ipapi.co
+        id: 3_727_publicip
+      - type: github-profile-stats
+        options:
+          username: dr460nf1r3
+          hideLanguagesCard: true
+        id: 4_727_githubprofilestats
+  - name: Webserver Stats
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: gl-cpu-history
+        useProxy: true
+        options:
+          hostname: http://192.168.1.10:61208
+        id: 0_1508_glcpuhistory
+      - type: gl-mem-history
+        useProxy: true
+        options:
+          hostname: http://192.168.1.10:61208
+        id: 1_1508_glmemhistory
+      - type: gl-network-traffic
+        useProxy: true
+        options:
+          hostname: http://192.168.1.10:61208
+        id: 2_1508_glnetworktraffic

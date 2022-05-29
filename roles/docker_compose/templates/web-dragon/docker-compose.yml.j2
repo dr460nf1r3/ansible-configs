@@ -270,3 +270,23 @@ services:
       default_source_lang: auto
       default_target_lang: en
       site_domain: translate.dr460nf1r3.org
+
+  # Dashy
+  dashy:
+    image: lissy93/dashy:latest
+    container_name: dashy
+    volumes:
+      - "./dashy/config.yml:/app/public/conf.yml"
+    ports:
+      - 4000:80
+    environment:
+      NODE_ENV: production
+      UID: 1000
+      GID: 1000
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
