@@ -34,16 +34,16 @@ appConfig:
   iconSize: large
   customColors:
     dracula:
-      primary: '#98ace9'
-      background: '#44475a'
-      background-darker: '#282a36'
+      primary: "#98ace9"
+      background: "#44475a"
+      background-darker: "#282a36"
       font-headings: '"Fira Sans",sans-serif'
       font-body: '"Fira Sans","Trebuchet MS",sans-serif'
       font-monospace: '"Fira Sans","Courier New",monospace'
     colorful:
-      primary: '#e8eae1'
-      background: '#0b1021'
-      background-darker: '#05070e'
+      primary: "#e8eae1"
+      background: "#0b1021"
+      background-darker: "#05070e"
       font-headings: '"Fira Sans",sans-serif'
       font-body: '"Fira Sans","Trebuchet MS",sans-serif'
       font-monospace: '"Fira Sans","Courier New",monospace'
@@ -51,7 +51,7 @@ appConfig:
   defaultOpeningMethod: newtab
   statusCheck: true
   statusCheckInterval: 30
-  backgroundImg: ''
+  backgroundImg: ""
   faviconApi: allesedv
   routingMode: history
   enableMultiTasking: false
