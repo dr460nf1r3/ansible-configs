@@ -1,21 +1,3 @@
-- name: Check if CachyOS repository is installed already
-  stat:
-    path: /etc/pacman.d/cachyos-v3-mirrorlist
-  register: cachyos_v3_exists
-  when: cachyos_v3 | default(false) == true
-- name: Retrieve CachyOS master key and sign it
-  shell: pacman-key --recv-keys 882DCFE48E2051D48E2562ABF3B607488DB35A47 && pacman-key --lsign-key 882DCFE48E2051D48E2562ABF3B607488DB35A47
-  when: cachyos_v3 | default(false) == true and cachyos_v3_exists.stat.exists | default(true) == false
-- name: Install CachyOS mirrorlist
-  pacman:
-    name: https://mirror.cachyos.org/repo/x86_64/cachyos/cachyos-v3-mirrorlist-8-1-any.pkg.tar.zst
-    state: present
-  when: cachyos_v3 | default(false) == true and cachyos_v3_exists.stat.exists | default(true) == false
-- name: Uninstall CachyOS mirrorlist
-  pacman:
-    name: cachyos-v3-mirrorlist-8-1-any.pkg.tar.zst
-    state: absent
-  when: cachyos_v3 == false and cachyos_v3_exists.stat.exists == true
 - name: Install pacman config
   template:
     dest: /etc/pacman.conf

@@ -6,7 +6,7 @@ testing: false
 
 packages_install:
   - acpi_call-dkms
-  - ananicy-cpp-git
+  - ananicy-cpp
   - ananicy-rules-git
   - android-tools
   - ansible
@@ -43,7 +43,6 @@ packages_install:
   - spotify
   - spotify-adblock-git
   - steam
-  - teams
   - thunderbird-appmenu
   - visual-studio-code-insiders-bin
   - whoogle-git
@@ -94,11 +93,8 @@ packages_install_after:
   - wireplumber-git
   - jamesdsp-git
   - lib32-mesa-tkg-git
-  - linux-tkg-cfs-generic_v3
-  - linux-tkg-cfs-generic_v3-headers
   - linux-tkg-cfs-lto_v3
   - linux-tkg-cfs-lto_v3-headers
-  - memavaild-git
   - mesa-tkg-git
   - octopi-git
   - starship-git
