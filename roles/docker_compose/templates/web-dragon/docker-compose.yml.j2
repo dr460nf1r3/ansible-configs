@@ -20,6 +20,18 @@ services:
     labels:
       - "diun.enable=true"
 
+  # SSL certs
+  certbot:
+    image: certbot/dns-cloudflare:latest
+    container_name: certbot
+    volumes:
+      - "./letsencrypt/etc:/etc/letsencrypt"
+      - "./letsencrypt/var:/var/lib/letsencrypt"
+    entrypoint: "/bin/sh -c 'trap exit TERM; sleep 10; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    labels:
+      - "diun.enable=true"
+    restart: always
+
   # Automatic container updates
   diun:
     image: crazymax/diun:latest
@@ -365,3 +377,25 @@ services:
     environment:
       NETDATA_CLAIM_TOKEN: {{ netdata_claim_token }}
       NETDATA_CLAIM_URL: {{ netdata_claim_url }}
+
+  # Deepfence
+  deepfence_agent_ce:
+    image: deepfenceio/deepfence_agent_ce:latest
+    container_name: deepfence-agent
+    pid: host
+    network_mode: host
+    privileged: true
+    volumes:
+      - "/sys/kernel/debug:/sys/kernel/debug:rw"
+      - "./deepfence/logs:/var/log/fenced"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/:/fenced/mnt/host/:ro"
+    environment:
+      USER_DEFINED_TAGS: {{ df_user_defined_tags }}
+      MGMT_CONSOLE_URL: {{ df_mgmt_console_url }}
+      MGMT_CONSOLE_PORT: {{ df_mgmt_console_port }}
+      DEEPFENCE_KEY: {{ df_key }}
+    mem_limit: 400m
+    mem_reservation: 10m
+    cpus: 0.2
+    restart: on-failure:5

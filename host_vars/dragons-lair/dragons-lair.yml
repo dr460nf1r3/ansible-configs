@@ -1,0 +1,4 @@
+# Base variables
+actual_hostname: dragons-lair
+ansible_host: 89.58.13.188
+ansible_port: 22

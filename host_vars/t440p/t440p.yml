@@ -1,9 +1,7 @@
----
+# Base variables
 actual_hostname: t440p
 ansible_host: 192.168.8.100
 ansible_port: 22
-#docker_compose: true
-#docker_compose_dir: /var/cache/web
 
 packages_install:
   - acpi_call-dkms
