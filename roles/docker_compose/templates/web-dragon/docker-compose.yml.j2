@@ -32,49 +32,6 @@ services:
       - "diun.enable=true"
     restart: always
 
-  # Automatic container updates
-  diun:
-    image: crazymax/diun:latest
-    container_name: diun
-    command: serve
-    volumes:
-      - "./diun:/data"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    environment:
-      DIUN_NOTIF_TELEGRAM_CHATIDS: {{ diun_notif_telegram_chatids }}
-      DIUN_NOTIF_TELEGRAM_TOKEN: {{ diun_notif_telegram_token }}
-      DIUN_PROVIDERS_DOCKER: {{ diun_providers_docker }}
-      DIUN_WATCH_SCHEDULE: "{{ diun_watch_schedule }}"
-      DIUN_WATCH_WORKERS: {{ diun_watch_workers }}
-      LOG_JSON: {{ log_json }}
-      LOG_LEVEL: {{ log_level }}
-    restart: on-failure:5
-    labels:
-      - "diun.enable=true"
-
-  # Syncthing
-  syncthing:
-    image: linuxserver/syncthing:latest
-    container_name: syncthing
-    hostname: dragons-epyc
-    volumes:
-      - ./syncthing:/config
-      - /srv/http/repos/chaotic-aur:/chaotic
-      - /home/nico/media/music:/music
-      - /home/nico/media/videos:/videos
-      - /home/nico/media/pictures:/pictures
-    ports:
-      - 22000:22000
-      - 21027:21027
-      - 21027:21027/udp
-    environment:
-      GUID: {{ guid }}
-      PUID: {{ puid }}
-      TZ: {{ tz }}
-    restart: on-failure:5
-    labels:
-      - "diun.enable=true"
-
   # Nextcloud
   nextcloud_app:
     image: lscr.io/linuxserver/nextcloud:latest
@@ -145,34 +102,6 @@ services:
     restart: on-failure:5
     labels:
       - "diun.enable=true"
-
-  # Wordpress
-  wordpress_sgs_app:
-    image: wordpress:latest
-    container_name: wordpress_sgs_app
-    volumes:
-      - ./wordpress_sgs/app:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: {{ wordpress_db_host }}
-      WORDPRESS_DB_USER: {{ wordpress_db_user }}
-      WORDPRESS_DB_PASSWORD: {{ wordpress_db_password }}
-    depends_on:
-      - wordpress_sgs_db
-    restart: on-failure:5
-    labels:
-      - "diun.enable=true"
-
-  wordpress_sgs_db:
-    image: mariadb:latest
-    container_name: wordpress_sgs_db
-    volumes:
-      - ./wordpress_sgs/db:/var/lib/mysql
-    restart: on-failure:5
-    environment:
-      MYSQL_ROOT_PASSWORD: {{ wp_mysql_root_password }}
-      MYSQL_DATABASE: {{ wp_mysql_database }}
-      MYSQL_USER: {{ wp_mysql_user }}
-      MYSQL_PASSWORD: {{ wp_mysql_password }}
 
   # Whoogle search engine
   whoogle:
@@ -282,78 +211,6 @@ services:
       default_source_lang: auto
       default_target_lang: en
       site_domain: translate.dr460nf1r3.org
-
-  # Dashy
-  dashy:
-    image: lissy93/dashy:latest
-    container_name: dashy
-    volumes:
-      - "./dashy/conf.yml:/app/public/conf.yml"
-    environment:
-      NODE_ENV: production
-      UID: 1000
-      GID: 1000
-    restart: on-failure:5
-    healthcheck:
-      test: ['CMD', 'node', '/app/services/healthcheck']
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-  # Kutt
-  kutt:
-    image: kutt/kutt:latest
-    container_name: kutt
-    depends_on:
-      - kutt_postgres
-      - kutt_redis
-    command: ["./wait-for-it.sh", "kutt_postgres:5432", "--", "npm", "start"]
-    environment:
-      ADMIN_EMAILS: {{ kutt_admin_emails }}
-      CONTACT_EMAIL: {{ kutt_contact_email }}
-      CUSTOM_DOMAIN_USE_HTTPS: true
-      DB_HOST: kutt_postgres
-      DB_NAME: {{ kutt_db_name }}
-      DB_PASSWORD: {{ kutt_db_password }}
-      DB_USER: {{ kutt_db_user }}
-      DEFAULT_DOMAIN: kutt.dr460nf1r3.org
-      DEFAULT_MAX_STATS_PER_LINK: 5000
-      DISALLOW_ANONYMOUS_LINKS: false
-      DISALLOW_REGISTRATION: false
-      JWT_SECRET: {{ kutt_jwt_secret }}
-      LINK_LENGTH: 5
-      MAIL_FROM: {{ kutt_mail_from }}
-      MAIL_HOST: {{ kutt_mail_host }}
-      MAIL_PASSWORD: {{ kutt_mail_password }}
-      MAIL_PORT: {{ kutt_mail_port }}
-      MAIL_SECURE: true
-      MAIL_USER: {{ kutt_mail_user }}
-      NON_USER_COOLDOWN: 0
-      PORT: 3000
-      REDIS_HOST: Kutt_redis
-      REPORT_EMAIL: {{ kutt_report_email }}
-      SITE_NAME: Dragons Kutt
-      USER_LIMIT_PER_DAY: 50
-    restart: on-failure:5
-
-  redis:
-    image: redis:6.0-alpine
-    container_name: kutt_redis
-    volumes:
-      - ./kutt/redis:/data
-    restart: on-failure:5
-
-  postgres:
-    image: postgres:12-alpine
-    container_name: kutt_postgres
-    environment:
-      POSTGRES_USER: {{ kutt_db_user }}
-      POSTGRES_PASSWORD: {{ kutt_db_password }}
-      POSTGRES_DB: {{ kutt_db_name }}
-    volumes:
-      - ./kutt/db:/var/lib/postgresql/data
-    restart: on-failure:5
 
   # Netdata
   netdata:
