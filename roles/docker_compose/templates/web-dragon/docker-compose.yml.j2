@@ -32,44 +32,6 @@ services:
       - "diun.enable=true"
     restart: always
 
-  # Nextcloud
-  nextcloud_app:
-    image: lscr.io/linuxserver/nextcloud:latest
-    container_name: nextcloud
-    volumes:
-      - ./nextcloud/config:/config
-      - ./nextcloud/data:/data
-    environment:
-      GUID: {{ guid }}
-      PUID: {{ puid }}
-      REDIS_HOST: {{ redis_host }}
-      TZ: {{ tz }}
-    restart: unless-stopped
-    labels:
-      - "diun.enable=true"
-
-  nextcloud_db:
-    image: mariadb:latest
-    container_name: nextcloud_db
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
-    restart: on-failure:5
-    volumes:
-      - ./nextcloud/db:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: {{ nc_mysql_database }}
-      MYSQL_PASSWORD: {{ nc_mysql_password }}
-      MYSQL_ROOT_PASSWORD: {{ nc_mysql_root_password }}
-      MYSQL_USER: {{ nc_mysql_user }}
-
-  nextcloud_redis:
-    image: redis:latest
-    container_name: nextcloud_redis
-    environment:
-      ALLOW_EMPTY_PASSWORD: {{ allow_empty_password }}
-    restart: on-failure:5
-    labels:
-      - "diun.enable=true"
-
   # Reddit frontend
   libreddit:
     image: spikecodes/libreddit:latest
